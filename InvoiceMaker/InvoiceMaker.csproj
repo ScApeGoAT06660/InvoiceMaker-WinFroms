@@ -62,23 +62,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\cntrlBuyer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\cntrlBuyer.Designer.cs">
+      <DependentUpon>cntrlBuyer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\cntrlItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\cntrlItem.Designer.cs">
+      <DependentUpon>cntrlItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\cntrlSeller.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\cntrlSeller.Designer.cs">
+      <DependentUpon>cntrlSeller.cs</DependentUpon>
+    </Compile>
     <Compile Include="Domains\Buyer.cs" />
     <Compile Include="Domains\Invoice.cs" />
     <Compile Include="Domains\Item.cs" />
     <Compile Include="Domains\PrivatePerson.cs" />
     <Compile Include="Domains\Seller.cs" />
     <Compile Include="Domains\Trader.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="frmInvoiceManagement.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmInvoiceManagement.Designer.cs">
+      <DependentUpon>frmInvoiceManagement.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvoiceForm.cs">
+    <Compile Include="frmInvoice.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="InvoiceForm.Designer.cs">
-      <DependentUpon>InvoiceForm.cs</DependentUpon>
+    <Compile Include="frmInvoice.Designer.cs">
+      <DependentUpon>frmInvoice.cs</DependentUpon>
     </Compile>
     <Compile Include="InvoiceMakerDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -87,11 +105,20 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\cntrlBuyer.resx">
+      <DependentUpon>cntrlBuyer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InvoiceForm.resx">
-      <DependentUpon>InvoiceForm.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\cntrlItem.resx">
+      <DependentUpon>cntrlItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\cntrlSeller.resx">
+      <DependentUpon>cntrlSeller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInvoiceManagement.resx">
+      <DependentUpon>frmInvoiceManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInvoice.resx">
+      <DependentUpon>frmInvoice.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,6 +128,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="InvoiceMakerDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -137,6 +165,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\trash-bin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

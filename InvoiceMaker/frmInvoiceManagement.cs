@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace InvoiceMaker
 {
-    public partial class InvoiceForm : Form
+    public partial class frmInvoiceManagement : Form
     {
-        public InvoiceForm()
+        public frmInvoiceManagement()
         {
             InitializeComponent();
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

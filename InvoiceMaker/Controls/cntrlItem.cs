@@ -8,18 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace InvoiceMaker
+namespace InvoiceMaker.Controls
 {
-    public partial class Form1 : Form
+    public partial class cntrlItem : UserControl
     {
-        public Form1()
+        public cntrlItem()
         {
             InitializeComponent();
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }
