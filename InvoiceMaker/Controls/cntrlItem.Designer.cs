@@ -167,6 +167,7 @@
             this.pbTrashButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbTrashButton.TabIndex = 28;
             this.pbTrashButton.TabStop = false;
+            this.pbTrashButton.Click += new System.EventHandler(this.pbTrashButton_Click);
             // 
             // cbVAT
             // 

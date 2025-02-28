@@ -12,9 +12,18 @@ namespace InvoiceMaker.Controls
 {
     public partial class cntrlItem : UserControl
     {
-        public cntrlItem()
+        FlowLayoutPanel _flpItems;
+
+        public cntrlItem(FlowLayoutPanel flpItems)
         {
             InitializeComponent();
+            _flpItems = flpItems;
+        }
+
+        private void pbTrashButton_Click(object sender, EventArgs e)
+        {
+            _flpItems.Controls.Remove(this);
+            this.Dispose();
         }
     }
 }

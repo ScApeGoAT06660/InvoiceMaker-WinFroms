@@ -33,15 +33,15 @@
             this.dgwInvoices = new System.Windows.Forms.DataGridView();
             this.pnlLeftPanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.gbCRUD = new System.Windows.Forms.GroupBox();
-            this.btnDelete = new System.Windows.Forms.Button();
-            this.btnEdit = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
+            this.gbManageCRUD = new System.Windows.Forms.GroupBox();
+            this.btnManageDelete = new System.Windows.Forms.Button();
+            this.btnManageEdit = new System.Windows.Forms.Button();
+            this.btnManageAdd = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlRightPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwInvoices)).BeginInit();
             this.pnlLeftPanel.SuspendLayout();
-            this.gbCRUD.SuspendLayout();
+            this.gbManageCRUD.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -80,7 +80,7 @@
             // pnlLeftPanel
             // 
             this.pnlLeftPanel.Controls.Add(this.groupBox2);
-            this.pnlLeftPanel.Controls.Add(this.gbCRUD);
+            this.pnlLeftPanel.Controls.Add(this.gbManageCRUD);
             this.pnlLeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLeftPanel.Location = new System.Drawing.Point(0, 0);
             this.pnlLeftPanel.Margin = new System.Windows.Forms.Padding(2);
@@ -100,53 +100,54 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
-            // gbCRUD
+            // gbManageCRUD
             // 
-            this.gbCRUD.Controls.Add(this.btnDelete);
-            this.gbCRUD.Controls.Add(this.btnEdit);
-            this.gbCRUD.Controls.Add(this.btnAdd);
-            this.gbCRUD.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gbCRUD.Location = new System.Drawing.Point(0, 0);
-            this.gbCRUD.Margin = new System.Windows.Forms.Padding(2);
-            this.gbCRUD.Name = "gbCRUD";
-            this.gbCRUD.Padding = new System.Windows.Forms.Padding(2);
-            this.gbCRUD.Size = new System.Drawing.Size(150, 136);
-            this.gbCRUD.TabIndex = 2;
-            this.gbCRUD.TabStop = false;
-            this.gbCRUD.Text = "Edytuj";
+            this.gbManageCRUD.Controls.Add(this.btnManageDelete);
+            this.gbManageCRUD.Controls.Add(this.btnManageEdit);
+            this.gbManageCRUD.Controls.Add(this.btnManageAdd);
+            this.gbManageCRUD.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbManageCRUD.Location = new System.Drawing.Point(0, 0);
+            this.gbManageCRUD.Margin = new System.Windows.Forms.Padding(2);
+            this.gbManageCRUD.Name = "gbManageCRUD";
+            this.gbManageCRUD.Padding = new System.Windows.Forms.Padding(2);
+            this.gbManageCRUD.Size = new System.Drawing.Size(150, 136);
+            this.gbManageCRUD.TabIndex = 2;
+            this.gbManageCRUD.TabStop = false;
+            this.gbManageCRUD.Text = "Edytuj";
             // 
-            // btnDelete
+            // btnManageDelete
             // 
-            this.btnDelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnDelete.Location = new System.Drawing.Point(20, 92);
-            this.btnDelete.Margin = new System.Windows.Forms.Padding(2);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(110, 30);
-            this.btnDelete.TabIndex = 2;
-            this.btnDelete.Text = "Usuń";
-            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnManageDelete.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnManageDelete.Location = new System.Drawing.Point(20, 92);
+            this.btnManageDelete.Margin = new System.Windows.Forms.Padding(2);
+            this.btnManageDelete.Name = "btnManageDelete";
+            this.btnManageDelete.Size = new System.Drawing.Size(110, 30);
+            this.btnManageDelete.TabIndex = 2;
+            this.btnManageDelete.Text = "Usuń";
+            this.btnManageDelete.UseVisualStyleBackColor = true;
             // 
-            // btnEdit
+            // btnManageEdit
             // 
-            this.btnEdit.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnEdit.Location = new System.Drawing.Point(20, 58);
-            this.btnEdit.Margin = new System.Windows.Forms.Padding(2);
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(110, 30);
-            this.btnEdit.TabIndex = 1;
-            this.btnEdit.Text = "Edytuj";
-            this.btnEdit.UseVisualStyleBackColor = true;
+            this.btnManageEdit.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnManageEdit.Location = new System.Drawing.Point(20, 58);
+            this.btnManageEdit.Margin = new System.Windows.Forms.Padding(2);
+            this.btnManageEdit.Name = "btnManageEdit";
+            this.btnManageEdit.Size = new System.Drawing.Size(110, 30);
+            this.btnManageEdit.TabIndex = 1;
+            this.btnManageEdit.Text = "Edytuj";
+            this.btnManageEdit.UseVisualStyleBackColor = true;
             // 
-            // btnAdd
+            // btnManageAdd
             // 
-            this.btnAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnAdd.Location = new System.Drawing.Point(20, 24);
-            this.btnAdd.Margin = new System.Windows.Forms.Padding(2);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(110, 30);
-            this.btnAdd.TabIndex = 0;
-            this.btnAdd.Text = "Dodaj";
-            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnManageAdd.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnManageAdd.Location = new System.Drawing.Point(20, 24);
+            this.btnManageAdd.Margin = new System.Windows.Forms.Padding(2);
+            this.btnManageAdd.Name = "btnManageAdd";
+            this.btnManageAdd.Size = new System.Drawing.Size(110, 30);
+            this.btnManageAdd.TabIndex = 0;
+            this.btnManageAdd.Text = "Dodaj";
+            this.btnManageAdd.UseVisualStyleBackColor = true;
+            this.btnManageAdd.Click += new System.EventHandler(this.btnManageAdd_Click);
             // 
             // frmInvoiceManagement
             // 
@@ -161,7 +162,7 @@
             this.pnlRightPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgwInvoices)).EndInit();
             this.pnlLeftPanel.ResumeLayout(false);
-            this.gbCRUD.ResumeLayout(false);
+            this.gbManageCRUD.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -173,10 +174,10 @@
         private System.Windows.Forms.DataGridView dgwInvoices;
         private System.Windows.Forms.Panel pnlLeftPanel;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.GroupBox gbCRUD;
-        private System.Windows.Forms.Button btnDelete;
-        private System.Windows.Forms.Button btnEdit;
-        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.GroupBox gbManageCRUD;
+        private System.Windows.Forms.Button btnManageDelete;
+        private System.Windows.Forms.Button btnManageEdit;
+        private System.Windows.Forms.Button btnManageAdd;
     }
 }
 

@@ -16,7 +16,7 @@ namespace InvoiceMaker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmInvoiceManagement());
+            Application.Run(new frmInvoice());
         }
     }
 }

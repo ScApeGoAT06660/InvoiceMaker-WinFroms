@@ -40,10 +40,10 @@
             this.txtInvoiceNo = new System.Windows.Forms.TextBox();
             this.lblInvoiceNo = new System.Windows.Forms.Label();
             this.gbEntityDetails = new System.Windows.Forms.GroupBox();
+            this.gbBuyer = new System.Windows.Forms.GroupBox();
+            this.cntrlBuyer = new InvoiceMaker.Controls.cntrlBuyer();
             this.gbSeller = new System.Windows.Forms.GroupBox();
             this.cntrlSeller = new InvoiceMaker.Controls.cntrlSeller();
-            this.gbBuyer = new System.Windows.Forms.GroupBox();
-            this.cntrlBuyer1 = new InvoiceMaker.Controls.cntrlBuyer();
             this.gbItems = new System.Windows.Forms.GroupBox();
             this.pnlSummary = new System.Windows.Forms.Panel();
             this.txtBruttoSummary = new System.Windows.Forms.TextBox();
@@ -72,8 +72,8 @@
             this.flpMainContainer.SuspendLayout();
             this.gbHeadline.SuspendLayout();
             this.gbEntityDetails.SuspendLayout();
-            this.gbSeller.SuspendLayout();
             this.gbBuyer.SuspendLayout();
+            this.gbSeller.SuspendLayout();
             this.gbItems.SuspendLayout();
             this.pnlSummary.SuspendLayout();
             this.gbPayment.SuspendLayout();
@@ -88,7 +88,7 @@
             this.pnlMainAddInvoice.Location = new System.Drawing.Point(0, 0);
             this.pnlMainAddInvoice.Margin = new System.Windows.Forms.Padding(2);
             this.pnlMainAddInvoice.Name = "pnlMainAddInvoice";
-            this.pnlMainAddInvoice.Size = new System.Drawing.Size(904, 988);
+            this.pnlMainAddInvoice.Size = new System.Drawing.Size(901, 973);
             this.pnlMainAddInvoice.TabIndex = 0;
             // 
             // flpMainContainer
@@ -99,7 +99,7 @@
             this.flpMainContainer.Controls.Add(this.gbEntityDetails);
             this.flpMainContainer.Controls.Add(this.gbItems);
             this.flpMainContainer.Controls.Add(this.gbAddition);
-            this.flpMainContainer.Location = new System.Drawing.Point(13, 13);
+            this.flpMainContainer.Location = new System.Drawing.Point(3, 3);
             this.flpMainContainer.Name = "flpMainContainer";
             this.flpMainContainer.Size = new System.Drawing.Size(887, 965);
             this.flpMainContainer.TabIndex = 5;
@@ -128,9 +128,10 @@
             // 
             // txtPlace
             // 
+            this.txtPlace.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtPlace.Location = new System.Drawing.Point(622, 51);
             this.txtPlace.Name = "txtPlace";
-            this.txtPlace.Size = new System.Drawing.Size(214, 26);
+            this.txtPlace.Size = new System.Drawing.Size(214, 24);
             this.txtPlace.TabIndex = 7;
             // 
             // lblPlace
@@ -145,9 +146,11 @@
             // 
             // dtpSaleDate
             // 
-            this.dtpSaleDate.Location = new System.Drawing.Point(454, 51);
+            this.dtpSaleDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dtpSaleDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpSaleDate.Location = new System.Drawing.Point(454, 53);
             this.dtpSaleDate.Name = "dtpSaleDate";
-            this.dtpSaleDate.Size = new System.Drawing.Size(162, 26);
+            this.dtpSaleDate.Size = new System.Drawing.Size(162, 24);
             this.dtpSaleDate.TabIndex = 5;
             // 
             // lblSaleDate
@@ -162,16 +165,19 @@
             // 
             // dtpIssueDate
             // 
-            this.dtpIssueDate.Location = new System.Drawing.Point(286, 51);
+            this.dtpIssueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.dtpIssueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpIssueDate.Location = new System.Drawing.Point(280, 53);
             this.dtpIssueDate.Name = "dtpIssueDate";
-            this.dtpIssueDate.Size = new System.Drawing.Size(162, 26);
+            this.dtpIssueDate.Size = new System.Drawing.Size(162, 24);
             this.dtpIssueDate.TabIndex = 3;
+            this.dtpIssueDate.Value = new System.DateTime(2025, 2, 26, 0, 0, 0, 0);
             // 
             // lblIssueDate
             // 
             this.lblIssueDate.AutoSize = true;
             this.lblIssueDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lblIssueDate.Location = new System.Drawing.Point(283, 30);
+            this.lblIssueDate.Location = new System.Drawing.Point(277, 30);
             this.lblIssueDate.Name = "lblIssueDate";
             this.lblIssueDate.Size = new System.Drawing.Size(132, 17);
             this.lblIssueDate.TabIndex = 2;
@@ -179,9 +185,10 @@
             // 
             // txtInvoiceNo
             // 
+            this.txtInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtInvoiceNo.Location = new System.Drawing.Point(12, 51);
             this.txtInvoiceNo.Name = "txtInvoiceNo";
-            this.txtInvoiceNo.Size = new System.Drawing.Size(262, 26);
+            this.txtInvoiceNo.Size = new System.Drawing.Size(262, 24);
             this.txtInvoiceNo.TabIndex = 1;
             // 
             // lblInvoiceNo
@@ -196,8 +203,8 @@
             // 
             // gbEntityDetails
             // 
-            this.gbEntityDetails.Controls.Add(this.gbSeller);
             this.gbEntityDetails.Controls.Add(this.gbBuyer);
+            this.gbEntityDetails.Controls.Add(this.gbSeller);
             this.gbEntityDetails.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbEntityDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gbEntityDetails.Location = new System.Drawing.Point(2, 98);
@@ -208,6 +215,28 @@
             this.gbEntityDetails.TabIndex = 1;
             this.gbEntityDetails.TabStop = false;
             this.gbEntityDetails.Text = "Dane podmiotów";
+            // 
+            // gbBuyer
+            // 
+            this.gbBuyer.Controls.Add(this.cntrlBuyer);
+            this.gbBuyer.Dock = System.Windows.Forms.DockStyle.Right;
+            this.gbBuyer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gbBuyer.ForeColor = System.Drawing.Color.Black;
+            this.gbBuyer.Location = new System.Drawing.Point(463, 21);
+            this.gbBuyer.Name = "gbBuyer";
+            this.gbBuyer.Size = new System.Drawing.Size(346, 376);
+            this.gbBuyer.TabIndex = 2;
+            this.gbBuyer.TabStop = false;
+            this.gbBuyer.Text = "Kupujący";
+            // 
+            // cntrlBuyer
+            // 
+            this.cntrlBuyer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cntrlBuyer.Location = new System.Drawing.Point(10, 24);
+            this.cntrlBuyer.Name = "cntrlBuyer";
+            this.cntrlBuyer.Size = new System.Drawing.Size(327, 330);
+            this.cntrlBuyer.TabIndex = 0;
+            this.cntrlBuyer.Load += new System.EventHandler(this.cntrlBuyer_Load);
             // 
             // gbSeller
             // 
@@ -224,30 +253,11 @@
             // 
             // cntrlSeller
             // 
+            this.cntrlSeller.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cntrlSeller.Location = new System.Drawing.Point(7, 25);
             this.cntrlSeller.Name = "cntrlSeller";
             this.cntrlSeller.Size = new System.Drawing.Size(333, 324);
             this.cntrlSeller.TabIndex = 0;
-            // 
-            // gbBuyer
-            // 
-            this.gbBuyer.Controls.Add(this.cntrlBuyer1);
-            this.gbBuyer.Dock = System.Windows.Forms.DockStyle.Right;
-            this.gbBuyer.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.gbBuyer.ForeColor = System.Drawing.Color.Black;
-            this.gbBuyer.Location = new System.Drawing.Point(463, 21);
-            this.gbBuyer.Name = "gbBuyer";
-            this.gbBuyer.Size = new System.Drawing.Size(346, 376);
-            this.gbBuyer.TabIndex = 0;
-            this.gbBuyer.TabStop = false;
-            this.gbBuyer.Text = "Nabywca";
-            // 
-            // cntrlBuyer1
-            // 
-            this.cntrlBuyer1.Location = new System.Drawing.Point(9, 24);
-            this.cntrlBuyer1.Name = "cntrlBuyer1";
-            this.cntrlBuyer1.Size = new System.Drawing.Size(327, 330);
-            this.cntrlBuyer1.TabIndex = 0;
             // 
             // gbItems
             // 
@@ -281,10 +291,11 @@
             // 
             // txtBruttoSummary
             // 
+            this.txtBruttoSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtBruttoSummary.Location = new System.Drawing.Point(93, 81);
             this.txtBruttoSummary.Name = "txtBruttoSummary";
             this.txtBruttoSummary.ReadOnly = true;
-            this.txtBruttoSummary.Size = new System.Drawing.Size(119, 26);
+            this.txtBruttoSummary.Size = new System.Drawing.Size(119, 24);
             this.txtBruttoSummary.TabIndex = 8;
             // 
             // lblBruttoSummary
@@ -299,12 +310,12 @@
             // 
             // txtVATSummary
             // 
+            this.txtVATSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtVATSummary.Location = new System.Drawing.Point(93, 49);
             this.txtVATSummary.Name = "txtVATSummary";
             this.txtVATSummary.ReadOnly = true;
-            this.txtVATSummary.Size = new System.Drawing.Size(119, 26);
+            this.txtVATSummary.Size = new System.Drawing.Size(119, 24);
             this.txtVATSummary.TabIndex = 6;
-            this.txtVATSummary.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // lblVATSummary
             // 
@@ -318,10 +329,11 @@
             // 
             // txtNettoSummary
             // 
+            this.txtNettoSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtNettoSummary.Location = new System.Drawing.Point(93, 17);
             this.txtNettoSummary.Name = "txtNettoSummary";
             this.txtNettoSummary.ReadOnly = true;
-            this.txtNettoSummary.Size = new System.Drawing.Size(119, 26);
+            this.txtNettoSummary.Size = new System.Drawing.Size(119, 24);
             this.txtNettoSummary.TabIndex = 4;
             // 
             // lblNettoSummary
@@ -349,10 +361,18 @@
             // 
             // cbPaymentDeadline
             // 
+            this.cbPaymentDeadline.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cbPaymentDeadline.FormattingEnabled = true;
+            this.cbPaymentDeadline.Items.AddRange(new object[] {
+            "3 dni",
+            "7 dni",
+            "14 dni",
+            "30 dni",
+            "60 dni",
+            "raty"});
             this.cbPaymentDeadline.Location = new System.Drawing.Point(183, 51);
             this.cbPaymentDeadline.Name = "cbPaymentDeadline";
-            this.cbPaymentDeadline.Size = new System.Drawing.Size(164, 28);
+            this.cbPaymentDeadline.Size = new System.Drawing.Size(164, 26);
             this.cbPaymentDeadline.TabIndex = 4;
             // 
             // lblPaymentDeadline
@@ -367,10 +387,22 @@
             // 
             // cbPaymentType
             // 
+            this.cbPaymentType.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.cbPaymentType.FormattingEnabled = true;
+            this.cbPaymentType.Items.AddRange(new object[] {
+            "przelew bankowy",
+            "gotówka",
+            "gotówka przy odbiorze",
+            "płatność za pobraniem",
+            "zaliczka",
+            "przedpłata",
+            "karta",
+            "paypal",
+            "revolut",
+            "BLIK"});
             this.cbPaymentType.Location = new System.Drawing.Point(13, 51);
             this.cbPaymentType.Name = "cbPaymentType";
-            this.cbPaymentType.Size = new System.Drawing.Size(164, 28);
+            this.cbPaymentType.Size = new System.Drawing.Size(164, 26);
             this.cbPaymentType.TabIndex = 2;
             // 
             // lblPaymentType
@@ -386,16 +418,19 @@
             // btnAddItem
             // 
             this.btnAddItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnAddItem.Location = new System.Drawing.Point(20, 175);
+            this.btnAddItem.Location = new System.Drawing.Point(25, 187);
             this.btnAddItem.Name = "btnAddItem";
             this.btnAddItem.Size = new System.Drawing.Size(129, 36);
             this.btnAddItem.TabIndex = 1;
             this.btnAddItem.Text = "Dodaj pozycje";
             this.btnAddItem.UseVisualStyleBackColor = true;
+            this.btnAddItem.Click += new System.EventHandler(this.btnAddItem_Click);
             // 
             // flpItems
             // 
             this.flpItems.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.flpItems.AutoScroll = true;
+            this.flpItems.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.flpItems.Location = new System.Drawing.Point(15, 24);
             this.flpItems.Name = "flpItems";
             this.flpItems.Size = new System.Drawing.Size(824, 170);
@@ -431,7 +466,7 @@
             this.btnDrop.TabIndex = 9;
             this.btnDrop.Text = "Anuluj";
             this.btnDrop.UseVisualStyleBackColor = true;
-            this.btnDrop.Click += new System.EventHandler(this.button2_Click);
+            this.btnDrop.Click += new System.EventHandler(this.btnDrop_Click);
             // 
             // btnSave
             // 
@@ -442,10 +477,10 @@
             this.btnSave.TabIndex = 8;
             this.btnSave.Text = "Zapisz";
             this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.button1_Click);
             // 
             // txtComment
             // 
+            this.txtComment.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtComment.Location = new System.Drawing.Point(12, 116);
             this.txtComment.Multiline = true;
             this.txtComment.Name = "txtComment";
@@ -464,9 +499,10 @@
             // 
             // txtBuyerSignature
             // 
+            this.txtBuyerSignature.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtBuyerSignature.Location = new System.Drawing.Point(286, 58);
             this.txtBuyerSignature.Name = "txtBuyerSignature";
-            this.txtBuyerSignature.Size = new System.Drawing.Size(262, 26);
+            this.txtBuyerSignature.Size = new System.Drawing.Size(262, 24);
             this.txtBuyerSignature.TabIndex = 5;
             // 
             // lblBuyerSignature
@@ -481,9 +517,10 @@
             // 
             // txtSellerSignature
             // 
+            this.txtSellerSignature.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtSellerSignature.Location = new System.Drawing.Point(12, 58);
             this.txtSellerSignature.Name = "txtSellerSignature";
-            this.txtSellerSignature.Size = new System.Drawing.Size(262, 26);
+            this.txtSellerSignature.Size = new System.Drawing.Size(262, 24);
             this.txtSellerSignature.TabIndex = 3;
             // 
             // lblSellerSignature
@@ -500,18 +537,19 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 988);
+            this.ClientSize = new System.Drawing.Size(901, 973);
             this.Controls.Add(this.pnlMainAddInvoice);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmInvoice";
             this.Text = "InvoiceForm";
+            this.Resize += new System.EventHandler(this.frmInvoice_Resize);
             this.pnlMainAddInvoice.ResumeLayout(false);
             this.flpMainContainer.ResumeLayout(false);
             this.gbHeadline.ResumeLayout(false);
             this.gbHeadline.PerformLayout();
             this.gbEntityDetails.ResumeLayout(false);
-            this.gbSeller.ResumeLayout(false);
             this.gbBuyer.ResumeLayout(false);
+            this.gbSeller.ResumeLayout(false);
             this.gbItems.ResumeLayout(false);
             this.pnlSummary.ResumeLayout(false);
             this.pnlSummary.PerformLayout();
@@ -538,10 +576,9 @@
         private System.Windows.Forms.Label lblIssueDate;
         private System.Windows.Forms.GroupBox gbAddition;
         private System.Windows.Forms.GroupBox gbItems;
-        private System.Windows.Forms.GroupBox gbBuyer;
         private System.Windows.Forms.GroupBox gbSeller;
         private Controls.cntrlSeller cntrlSeller;
-        private Controls.cntrlBuyer cntrlBuyer1;
+       // private Controls.cntrlBuyer cntrlBuyer1;
         private System.Windows.Forms.FlowLayoutPanel flpItems;
         private System.Windows.Forms.GroupBox gbPayment;
         private System.Windows.Forms.ComboBox cbPaymentDeadline;
@@ -565,5 +602,8 @@
         private System.Windows.Forms.TextBox txtSellerSignature;
         private System.Windows.Forms.Label lblSellerSignature;
         private System.Windows.Forms.FlowLayoutPanel flpMainContainer;
+        //private Controls.cntrlBuyer cntrlBuyer;
+        private System.Windows.Forms.GroupBox gbBuyer;
+        private Controls.cntrlBuyer cntrlBuyer;
     }
 }

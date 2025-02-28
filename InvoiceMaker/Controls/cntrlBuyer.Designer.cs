@@ -129,7 +129,6 @@
             this.lblCity.Size = new System.Drawing.Size(97, 17);
             this.lblCity.TabIndex = 10;
             this.lblCity.Text = "Miejscowość";
-            this.lblCity.Click += new System.EventHandler(this.label4_Click);
             // 
             // rbBusinessType
             // 
@@ -154,6 +153,7 @@
             this.rbPrivatePersonType.TabStop = true;
             this.rbPrivatePersonType.Text = "Osoba prywatna";
             this.rbPrivatePersonType.UseVisualStyleBackColor = true;
+            this.rbPrivatePersonType.CheckedChanged += new System.EventHandler(this.rbPrivatePersonType_CheckedChanged);
             // 
             // pbTraderListButton
             // 
@@ -174,6 +174,7 @@
             this.btnGUS.TabIndex = 15;
             this.btnGUS.Text = "GUS";
             this.btnGUS.UseVisualStyleBackColor = true;
+            this.btnGUS.Click += new System.EventHandler(this.btnGUS_Click);
             // 
             // cntrlBuyer
             // 
