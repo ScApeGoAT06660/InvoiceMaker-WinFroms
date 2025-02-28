@@ -12,7 +12,7 @@ namespace InvoiceMaker.Services
 {
     public class MRiFController
     {
-        public async Task<Trader> TakeTraderInfo(string nip)
+        public async Task<Traders> TakeTraderInfo(string nip)
         {
             string date = DateTime.Now.ToString("yyyy-MM-dd");
             string url = $"https://wl-api.mf.gov.pl/api/search/nip/{nip}?date={date}";
@@ -30,7 +30,7 @@ namespace InvoiceMaker.Services
                     {
                         string fullAddress = subject["workingAddress"]?.ToString();
 
-                        return new Trader
+                        return new Traders
                         {
                             Name = subject["name"]?.ToString(),
                             VATID = subject["nip"]?.ToString(),

@@ -52,7 +52,7 @@ namespace InvoiceMaker.Controls
 
             try
             {
-                Trader trader = await mrifController.TakeTraderInfo(nip);
+                Traders trader = await mrifController.TakeTraderInfo(nip);
 
                 if (trader != null)
                 {

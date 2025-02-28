@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvoiceMaker.Controls;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,12 +20,8 @@ namespace InvoiceMaker.Forms
 
         private void btnSellerSave_Click(object sender, EventArgs e)
         {
-            //logika zapisu do bazy danych
+            cntrlSeller.SaveUser();
 
-            Seller seller = new Seller
-            {
-
-            };
 
 
         }

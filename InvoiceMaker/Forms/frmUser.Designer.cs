@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.cntrlSeller1 = new InvoiceMaker.Controls.cntrlSeller();
+            this.cntrlSeller = new InvoiceMaker.Controls.cntrlSeller();
             this.btnSellerSave = new System.Windows.Forms.Button();
             this.btnSellerCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // cntrlSeller1
+            // cntrlSeller
             // 
-            this.cntrlSeller1.Location = new System.Drawing.Point(3, 3);
-            this.cntrlSeller1.Name = "cntrlSeller1";
-            this.cntrlSeller1.Size = new System.Drawing.Size(333, 324);
-            this.cntrlSeller1.TabIndex = 0;
+            this.cntrlSeller.Location = new System.Drawing.Point(3, 3);
+            this.cntrlSeller.Name = "cntrlSeller";
+            this.cntrlSeller.Size = new System.Drawing.Size(333, 324);
+            this.cntrlSeller.TabIndex = 0;
             // 
             // btnSellerSave
             // 
@@ -67,7 +67,7 @@
             this.ClientSize = new System.Drawing.Size(338, 370);
             this.Controls.Add(this.btnSellerCancel);
             this.Controls.Add(this.btnSellerSave);
-            this.Controls.Add(this.cntrlSeller1);
+            this.Controls.Add(this.cntrlSeller);
             this.Name = "frmUser";
             this.Text = "Użytkownik";
             this.ResumeLayout(false);
@@ -76,7 +76,7 @@
 
         #endregion
 
-        private Controls.cntrlSeller cntrlSeller1;
+        private Controls.cntrlSeller cntrlSeller;
         private System.Windows.Forms.Button btnSellerSave;
         private System.Windows.Forms.Button btnSellerCancel;
     }

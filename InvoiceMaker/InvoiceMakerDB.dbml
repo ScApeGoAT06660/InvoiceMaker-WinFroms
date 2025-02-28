@@ -4,7 +4,7 @@
     <Type Name="Buyer">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Buyer_Invoice" Member="Invoices" ThisKey="Id" OtherKey="BuyerId" Type="Invoice" />
-      <Association Name="Trader_Buyer" Member="Trader" ThisKey="Id" OtherKey="Id" Type="Trader" IsForeignKey="true" />
+      <Association Name="Trader_Buyer" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Invoices" Member="Invoices">
@@ -24,7 +24,7 @@
       <Column Name="Notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Invoice_Item" Member="Items" ThisKey="Id" OtherKey="InvoiceId" Type="Item" />
       <Association Name="Buyer_Invoice" Member="Buyer" ThisKey="BuyerId" OtherKey="Id" Type="Buyer" IsForeignKey="true" />
-      <Association Name="Seller_Invoice" Member="Seller" ThisKey="SellerId" OtherKey="Id" Type="Seller" IsForeignKey="true" />
+      <Association Name="Seller_Invoice" Member="Sellers" Storage="_Seller" ThisKey="SellerId" OtherKey="Id" Type="Sellers" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Items" Member="Items">
@@ -44,21 +44,21 @@
     <Type Name="PrivatePerson">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PESEL" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="Trader_PrivatePerson" Member="Trader" ThisKey="Id" OtherKey="Id" Type="Trader" IsForeignKey="true" />
+      <Association Name="Trader_PrivatePerson" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Sellers" Member="Sellers">
-    <Type Name="Seller">
+    <Type Name="Sellers">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="BankAccount" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Bank" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="SWIFT" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Association Name="Seller_Invoice" Member="Invoices" ThisKey="Id" OtherKey="SellerId" Type="Invoice" />
-      <Association Name="Trader_Seller" Member="Trader" ThisKey="Id" OtherKey="Id" Type="Trader" IsForeignKey="true" />
+      <Association Name="Trader_Seller" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Traders" Member="Traders">
-    <Type Name="Trader">
+    <Type Name="Traders">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
       <Column Name="VATID" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
@@ -68,7 +68,7 @@
       <Column Name="TraderType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
       <Association Name="Trader_Buyer" Member="Buyer" ThisKey="Id" OtherKey="Id" Type="Buyer" Cardinality="One" />
       <Association Name="Trader_PrivatePerson" Member="PrivatePerson" ThisKey="Id" OtherKey="Id" Type="PrivatePerson" Cardinality="One" />
-      <Association Name="Trader_Seller" Member="Seller" ThisKey="Id" OtherKey="Id" Type="Seller" Cardinality="One" />
+      <Association Name="Trader_Seller" Member="Seller" ThisKey="Id" OtherKey="Id" Type="Sellers" Cardinality="One" />
     </Type>
   </Table>
 </Database>
