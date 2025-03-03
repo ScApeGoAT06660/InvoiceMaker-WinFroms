@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvoiceMaker.Domains;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,14 @@ namespace InvoiceMaker
         public frmInvoiceManagement()
         {
             InitializeComponent();
+
+            this.Hide();
+
+            if(!GlobalState.isSetUp)
+            {
+                frmLogIn frmLogIn = new frmLogIn(this);
+                frmLogIn.ShowDialog();
+            }
         }
 
         private void btnManageAdd_Click(object sender, EventArgs e)

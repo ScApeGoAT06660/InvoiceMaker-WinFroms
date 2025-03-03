@@ -356,11 +356,18 @@
       <DependentUpon>cntrlSeller.cs</DependentUpon>
     </Compile>
     <Compile Include="Domains\Buyer.cs" />
+    <Compile Include="Domains\GlobalState.cs" />
     <Compile Include="Domains\Invoice.cs" />
     <Compile Include="Domains\Item.cs" />
     <Compile Include="Domains\PrivatePerson.cs" />
     <Compile Include="Domains\Seller.cs" />
     <Compile Include="Domains\Trader.cs" />
+    <Compile Include="Forms\frmBuyersList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmBuyersList.Designer.cs">
+      <DependentUpon>frmBuyersList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -402,6 +409,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\cntrlSeller.resx">
       <DependentUpon>cntrlSeller.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmBuyersList.resx">
+      <DependentUpon>frmBuyersList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>

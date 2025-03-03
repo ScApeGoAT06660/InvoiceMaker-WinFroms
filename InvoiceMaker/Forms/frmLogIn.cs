@@ -1,4 +1,5 @@
-﻿using InvoiceMaker.Forms;
+﻿using InvoiceMaker.Domains;
+using InvoiceMaker.Forms;
 using InvoiceMaker.Services;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,15 @@ namespace InvoiceMaker
     public partial class frmLogIn : Form
     {
         DataRepository dataRepository;
-        public frmLogIn()
+        frmInvoiceManagement invoiceManagement;
+
+        public frmLogIn(frmInvoiceManagement invoiceManagement)
         {
             InitializeComponent();
+
             dataRepository = new DataRepository();
+            this.invoiceManagement = invoiceManagement;
+
             LoadUsers();
         }
 
@@ -27,6 +33,7 @@ namespace InvoiceMaker
         {
             frmUser newUser = new frmUser();
             newUser.ShowDialog();
+
             LoadUsers();
         }
 
@@ -40,6 +47,20 @@ namespace InvoiceMaker
         {
             List<string> sellers = dataRepository.ReturnUsersNameList();
             lbLogInUsers.DataSource = sellers;
+        }
+
+        private void btnLogInChoose_Click(object sender, EventArgs e)
+        {
+            if (lbLogInUsers.SelectedItem != null)
+            {
+                int selectedId = (int)lbLogInUsers.SelectedIndex+1;
+
+                GlobalState.SelectedSeller = dataRepository.ReturnSelectedUser(selectedId);
+                GlobalState.isSetUp = true; 
+
+                invoiceManagement.Show();
+                this.Close();
+            }
         }
     }
 }

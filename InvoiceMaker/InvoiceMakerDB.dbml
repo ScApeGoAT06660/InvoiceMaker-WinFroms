@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="InvoiceMakerDB" Class="InvoiceMakerDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=InvoiceMakerDB;Integrated Security=True" SettingsObjectName="InvoiceMaker.Properties.Settings" SettingsPropertyName="InvoiceMakerDBConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Buyers" Member="Buyers">
-    <Type Name="Buyer">
+    <Type Name="Buyers">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="Buyer_Invoice" Member="Invoices" ThisKey="Id" OtherKey="BuyerId" Type="Invoice" />
-      <Association Name="Trader_Buyer" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
+      <Association Name="Traders_Buyer" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Invoices" Member="Invoices">
@@ -23,8 +23,8 @@
       <Column Name="BuyerSignature" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="Invoice_Item" Member="Items" ThisKey="Id" OtherKey="InvoiceId" Type="Item" />
-      <Association Name="Buyer_Invoice" Member="Buyer" ThisKey="BuyerId" OtherKey="Id" Type="Buyer" IsForeignKey="true" />
-      <Association Name="Seller_Invoice" Member="Sellers" Storage="_Seller" ThisKey="SellerId" OtherKey="Id" Type="Sellers" IsForeignKey="true" />
+      <Association Name="Buyer_Invoice" Member="Buyers" Storage="_Buyer" ThisKey="BuyerId" OtherKey="Id" Type="Buyers" IsForeignKey="true" />
+      <Association Name="Sellers_Invoice" Member="Sellers" Storage="_Seller" ThisKey="SellerId" OtherKey="Id" Type="Sellers" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Items" Member="Items">
@@ -44,7 +44,7 @@
     <Type Name="PrivatePerson">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="PESEL" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="Trader_PrivatePerson" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
+      <Association Name="Traders_PrivatePerson" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Sellers" Member="Sellers">
@@ -53,8 +53,8 @@
       <Column Name="BankAccount" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Bank" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="SWIFT" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="Seller_Invoice" Member="Invoices" ThisKey="Id" OtherKey="SellerId" Type="Invoice" />
-      <Association Name="Trader_Seller" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
+      <Association Name="Sellers_Invoice" Member="Invoices" ThisKey="Id" OtherKey="SellerId" Type="Invoice" />
+      <Association Name="Traders_Sellers" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Traders" Member="Traders">
@@ -66,9 +66,9 @@
       <Column Name="Postcode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="City" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="TraderType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Trader_Buyer" Member="Buyer" ThisKey="Id" OtherKey="Id" Type="Buyer" Cardinality="One" />
-      <Association Name="Trader_PrivatePerson" Member="PrivatePerson" ThisKey="Id" OtherKey="Id" Type="PrivatePerson" Cardinality="One" />
-      <Association Name="Trader_Seller" Member="Seller" ThisKey="Id" OtherKey="Id" Type="Sellers" Cardinality="One" />
+      <Association Name="Traders_Buyer" Member="Buyer" ThisKey="Id" OtherKey="Id" Type="Buyers" Cardinality="One" />
+      <Association Name="Traders_PrivatePerson" Member="PrivatePerson" ThisKey="Id" OtherKey="Id" Type="PrivatePerson" Cardinality="One" />
+      <Association Name="Traders_Sellers" Member="Seller" ThisKey="Id" OtherKey="Id" Type="Sellers" Cardinality="One" />
     </Type>
   </Table>
 </Database>

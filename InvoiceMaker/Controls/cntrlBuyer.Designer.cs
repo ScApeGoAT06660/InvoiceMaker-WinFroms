@@ -40,8 +40,8 @@
             this.lblCity = new System.Windows.Forms.Label();
             this.rbBusinessType = new System.Windows.Forms.RadioButton();
             this.rbPrivatePersonType = new System.Windows.Forms.RadioButton();
-            this.pbTraderListButton = new System.Windows.Forms.PictureBox();
             this.btnGUS = new System.Windows.Forms.Button();
+            this.pbTraderListButton = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbTraderListButton)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +68,8 @@
             this.txtVATID.Name = "txtVATID";
             this.txtVATID.Size = new System.Drawing.Size(304, 20);
             this.txtVATID.TabIndex = 5;
+            this.txtVATID.Text = "5261040828";
+            this.txtVATID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVATID_KeyDown);
             // 
             // lblVATID
             // 
@@ -133,6 +135,7 @@
             // rbBusinessType
             // 
             this.rbBusinessType.AutoSize = true;
+            this.rbBusinessType.Checked = true;
             this.rbBusinessType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rbBusinessType.Location = new System.Drawing.Point(13, 17);
             this.rbBusinessType.Name = "rbBusinessType";
@@ -155,16 +158,6 @@
             this.rbPrivatePersonType.UseVisualStyleBackColor = true;
             this.rbPrivatePersonType.CheckedChanged += new System.EventHandler(this.rbPrivatePersonType_CheckedChanged);
             // 
-            // pbTraderListButton
-            // 
-            this.pbTraderListButton.Image = global::InvoiceMaker.Properties.Resources.user;
-            this.pbTraderListButton.Location = new System.Drawing.Point(13, 275);
-            this.pbTraderListButton.Name = "pbTraderListButton";
-            this.pbTraderListButton.Size = new System.Drawing.Size(32, 32);
-            this.pbTraderListButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbTraderListButton.TabIndex = 14;
-            this.pbTraderListButton.TabStop = false;
-            // 
             // btnGUS
             // 
             this.btnGUS.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -175,6 +168,17 @@
             this.btnGUS.Text = "GUS";
             this.btnGUS.UseVisualStyleBackColor = true;
             this.btnGUS.Click += new System.EventHandler(this.btnGUS_Click);
+            // 
+            // pbTraderListButton
+            // 
+            this.pbTraderListButton.Image = global::InvoiceMaker.Properties.Resources.user;
+            this.pbTraderListButton.Location = new System.Drawing.Point(13, 275);
+            this.pbTraderListButton.Name = "pbTraderListButton";
+            this.pbTraderListButton.Size = new System.Drawing.Size(32, 32);
+            this.pbTraderListButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbTraderListButton.TabIndex = 14;
+            this.pbTraderListButton.TabStop = false;
+            this.pbTraderListButton.Click += new System.EventHandler(this.pbTraderListButton_Click);
             // 
             // cntrlBuyer
             // 

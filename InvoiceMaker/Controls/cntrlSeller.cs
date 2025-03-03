@@ -37,5 +37,18 @@ namespace InvoiceMaker.Controls
 
             dataRepository.SaveNewUser(seller);
         }
+
+        public void SetUser(Seller seller)
+        {
+            txtBuyerName.Text = seller.Name;
+            txtVATID.Text = seller.VATID;
+            txtStreetAndNo.Text = seller.StreetAndNo;
+            txtPostcode.Text = seller.Postcode;
+            txtCity.Text = seller.City;
+            txtBankAccount.Text = seller.BankAccount;
+            txtBank.Text = seller.Bank;
+            txtSWIFT.Text = seller.SWIFT;
+        }
+
     }
 }

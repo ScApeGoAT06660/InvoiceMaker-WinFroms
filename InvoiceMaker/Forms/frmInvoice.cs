@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ServiceModel;
 using InvoiceMaker.Services;
+using InvoiceMaker.Domains;
 
 namespace InvoiceMaker
 {
@@ -21,6 +22,7 @@ namespace InvoiceMaker
         {
             InitializeComponent();
             mrifController = new MRiFController();
+            cntrlSeller.SetUser(GlobalState.SelectedSeller);
         }
 
         private void frmInvoice_Resize(object sender, EventArgs e)
@@ -44,7 +46,24 @@ namespace InvoiceMaker
 
         private void cntrlBuyer_Load(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            Invoice newInvoice = new Invoice
+            {
+                Number = txtInvoiceNo.Text,
+                IssueDate = DateTime.Now,
+                SaleDate = DateTime.Now,
+                Place = txtPlace.Text,
+                //uzu
+                PaymentType = cbPaymentType.Text,
+                PaymentDeadline = cbPaymentDeadline.Text,
+                SellerSignature = txtSellerSignature.Text,
+                BuyerSignature = txtSellerSignature.Text,
+                Notes = txtComment.Text,
+            };
         }
     }
 }

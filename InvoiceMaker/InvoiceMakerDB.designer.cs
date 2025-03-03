@@ -30,9 +30,9 @@ namespace InvoiceMaker
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertBuyer(Buyer instance);
-    partial void UpdateBuyer(Buyer instance);
-    partial void DeleteBuyer(Buyer instance);
+    partial void InsertBuyers(Buyers instance);
+    partial void UpdateBuyers(Buyers instance);
+    partial void DeleteBuyers(Buyers instance);
     partial void InsertInvoice(Invoice instance);
     partial void UpdateInvoice(Invoice instance);
     partial void DeleteInvoice(Invoice instance);
@@ -80,11 +80,11 @@ namespace InvoiceMaker
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Buyer> Buyers
+		public System.Data.Linq.Table<Buyers> Buyers
 		{
 			get
 			{
-				return this.GetTable<Buyer>();
+				return this.GetTable<Buyers>();
 			}
 		}
 		
@@ -130,7 +130,7 @@ namespace InvoiceMaker
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Buyers")]
-	public partial class Buyer : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Buyers : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -149,7 +149,7 @@ namespace InvoiceMaker
     partial void OnIdChanged();
     #endregion
 		
-		public Buyer()
+		public Buyers()
 		{
 			this._Invoices = new EntitySet<Invoice>(new Action<Invoice>(this.attach_Invoices), new Action<Invoice>(this.detach_Invoices));
 			this._Trader = default(EntityRef<Traders>);
@@ -193,7 +193,7 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Trader_Buyer", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Buyer", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
 		public Traders Traders
 		{
 			get
@@ -250,13 +250,13 @@ namespace InvoiceMaker
 		private void attach_Invoices(Invoice entity)
 		{
 			this.SendPropertyChanging();
-			entity.Buyer = this;
+			entity.Buyers = this;
 		}
 		
 		private void detach_Invoices(Invoice entity)
 		{
 			this.SendPropertyChanging();
-			entity.Buyer = null;
+			entity.Buyers = null;
 		}
 	}
 	
@@ -294,7 +294,7 @@ namespace InvoiceMaker
 		
 		private EntitySet<Item> _Items;
 		
-		private EntityRef<Buyer> _Buyer;
+		private EntityRef<Buyers> _Buyer;
 		
 		private EntityRef<Sellers> _Seller;
 		
@@ -333,7 +333,7 @@ namespace InvoiceMaker
 		public Invoice()
 		{
 			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
-			this._Buyer = default(EntityRef<Buyer>);
+			this._Buyer = default(EntityRef<Buyers>);
 			this._Seller = default(EntityRef<Sellers>);
 			OnCreated();
 		}
@@ -620,7 +620,7 @@ namespace InvoiceMaker
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Buyer_Invoice", Storage="_Buyer", ThisKey="BuyerId", OtherKey="Id", IsForeignKey=true)]
-		public Buyer Buyer
+		public Buyers Buyers
 		{
 			get
 			{
@@ -628,7 +628,7 @@ namespace InvoiceMaker
 			}
 			set
 			{
-				Buyer previousValue = this._Buyer.Entity;
+				Buyers previousValue = this._Buyer.Entity;
 				if (((previousValue != value) 
 							|| (this._Buyer.HasLoadedOrAssignedValue == false)))
 				{
@@ -648,12 +648,12 @@ namespace InvoiceMaker
 					{
 						this._BuyerId = default(Nullable<int>);
 					}
-					this.SendPropertyChanged("Buyer");
+					this.SendPropertyChanged("Buyers");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Seller_Invoice", Storage="_Seller", ThisKey="SellerId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sellers_Invoice", Storage="_Seller", ThisKey="SellerId", OtherKey="Id", IsForeignKey=true)]
 		public Sellers Sellers
 		{
 			get
@@ -1063,7 +1063,7 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Trader_PrivatePerson", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_PrivatePerson", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
 		public Traders Traders
 		{
 			get
@@ -1241,7 +1241,7 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Seller_Invoice", Storage="_Invoices", ThisKey="Id", OtherKey="SellerId")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sellers_Invoice", Storage="_Invoices", ThisKey="Id", OtherKey="SellerId")]
 		public EntitySet<Invoice> Invoices
 		{
 			get
@@ -1254,7 +1254,7 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Trader_Seller", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Sellers", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
 		public Traders Traders
 		{
 			get
@@ -1341,7 +1341,7 @@ namespace InvoiceMaker
 		
 		private string _TraderType;
 		
-		private EntityRef<Buyer> _Buyer;
+		private EntityRef<Buyers> _Buyer;
 		
 		private EntityRef<PrivatePerson> _PrivatePerson;
 		
@@ -1369,7 +1369,7 @@ namespace InvoiceMaker
 		
 		public Traders()
 		{
-			this._Buyer = default(EntityRef<Buyer>);
+			this._Buyer = default(EntityRef<Buyers>);
 			this._PrivatePerson = default(EntityRef<PrivatePerson>);
 			this._Seller = default(EntityRef<Sellers>);
 			OnCreated();
@@ -1515,8 +1515,8 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Trader_Buyer", Storage="_Buyer", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
-		public Buyer Buyer
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Buyer", Storage="_Buyer", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
+		public Buyers Buyer
 		{
 			get
 			{
@@ -1524,7 +1524,7 @@ namespace InvoiceMaker
 			}
 			set
 			{
-				Buyer previousValue = this._Buyer.Entity;
+				Buyers previousValue = this._Buyer.Entity;
 				if (((previousValue != value) 
 							|| (this._Buyer.HasLoadedOrAssignedValue == false)))
 				{
@@ -1544,7 +1544,7 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Trader_PrivatePerson", Storage="_PrivatePerson", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_PrivatePerson", Storage="_PrivatePerson", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
 		public PrivatePerson PrivatePerson
 		{
 			get
@@ -1573,7 +1573,7 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Trader_Seller", Storage="_Seller", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Sellers", Storage="_Seller", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
 		public Sellers Seller
 		{
 			get

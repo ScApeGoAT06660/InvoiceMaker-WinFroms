@@ -94,6 +94,7 @@
             this.btnLogInChoose.TabIndex = 5;
             this.btnLogInChoose.Text = "Wybierz";
             this.btnLogInChoose.UseVisualStyleBackColor = true;
+            this.btnLogInChoose.Click += new System.EventHandler(this.btnLogInChoose_Click);
             // 
             // frmLogIn
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InvoiceMaker.Domains;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,9 @@ namespace InvoiceMaker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmLogIn());
+            GlobalState.isSetUp = false;
+            Application.Run(new frmInvoiceManagement());
+
         }
     }
 }

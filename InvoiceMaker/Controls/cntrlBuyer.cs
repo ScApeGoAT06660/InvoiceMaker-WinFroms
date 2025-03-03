@@ -14,6 +14,8 @@ using System.Xml;
 using InvoiceMaker.GusApiService;
 using InvoiceMaker.Services;
 using static System.Net.Mime.MediaTypeNames;
+using InvoiceMaker.Domains;
+using InvoiceMaker.Forms;
 
 
 namespace InvoiceMaker.Controls
@@ -21,12 +23,13 @@ namespace InvoiceMaker.Controls
     public partial class cntrlBuyer : UserControl
     {
         MRiFController mrifController;
-
+        DataRepository dataRepository;
         public cntrlBuyer()
         {
             InitializeComponent();
 
             mrifController = new MRiFController();
+            dataRepository = new DataRepository();
         }
 
         private void rbPrivatePersonType_CheckedChanged(object sender, EventArgs e)
@@ -37,6 +40,11 @@ namespace InvoiceMaker.Controls
                 txtVATID.Text = string.Empty;
 
                 //zaznacz typ na private person
+            }
+            else
+            {
+                rbBusinessType.Checked = true;
+                txtVATID.ReadOnly = false;
             }
         }
 
@@ -72,6 +80,39 @@ namespace InvoiceMaker.Controls
                 MessageBox.Show($"Wystąpił błąd: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+        }
+
+        private void pbTraderListButton_Click(object sender, EventArgs e)
+        {
+            frmBuyersList frmBuyersList = new frmBuyersList();
+            frmBuyersList.ShowDialog();
+        }
+
+        private void txtVATID_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) 
+            {
+                e.SuppressKeyPress = true;
+
+                if (!dataRepository.CheckIfVATIDExist(txtVATID.Text))
+                {
+                    DialogResult result = MessageBox.Show("Czy chcesz zapisać tego kontreahenta do bazy?", "Potwierdzenie", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        Buyer buyer = new Buyer
+                        {
+                            Name = txtBuyerName.Text,
+                            VATID = txtVATID.Text,
+                            StreetAndNo = txtStreetAndNo.Text,
+                            Postcode = txtPostcode.Text,
+                            City = txtCity.Text
+                       };
+
+                        dataRepository.SaveNewBuyer(buyer);
+                    }
+                }
+            }
         }
     }
 }
