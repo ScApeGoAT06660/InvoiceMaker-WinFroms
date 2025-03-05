@@ -1,12 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="InvoiceMakerDB" Class="InvoiceMakerDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=InvoiceMakerDB;Integrated Security=True" SettingsObjectName="InvoiceMaker.Properties.Settings" SettingsPropertyName="InvoiceMakerDBConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.Buyers" Member="Buyers">
-    <Type Name="Buyers">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="Buyer_Invoice" Member="Invoices" ThisKey="Id" OtherKey="BuyerId" Type="Invoice" />
-      <Association Name="Traders_Buyer" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Invoices" Member="Invoices">
     <Type Name="Invoice">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -22,13 +15,13 @@
       <Column Name="SellerSignature" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="BuyerSignature" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Association Name="Invoice_Item" Member="Items" ThisKey="Id" OtherKey="InvoiceId" Type="Item" />
-      <Association Name="Buyer_Invoice" Member="Buyers" Storage="_Buyer" ThisKey="BuyerId" OtherKey="Id" Type="Buyers" IsForeignKey="true" />
+      <Association Name="Invoice_Item" Member="Items" ThisKey="Id" OtherKey="InvoiceId" Type="Items" />
+      <Association Name="Buyers_Invoice" Member="Buyers" Storage="_Buyer" ThisKey="BuyerId" OtherKey="Id" Type="Buyers" IsForeignKey="true" />
       <Association Name="Sellers_Invoice" Member="Sellers" Storage="_Seller" ThisKey="SellerId" OtherKey="Id" Type="Sellers" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Items" Member="Items">
-    <Type Name="Item">
+    <Type Name="Items">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="InvoiceId" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Name" Type="System.String" DbType="NVarChar(255) NOT NULL" CanBeNull="false" />
@@ -40,23 +33,6 @@
       <Association Name="Invoice_Item" Member="Invoice" ThisKey="InvoiceId" OtherKey="Id" Type="Invoice" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.PrivatePersons" Member="PrivatePersons">
-    <Type Name="PrivatePerson">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="PESEL" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="Traders_PrivatePerson" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Sellers" Member="Sellers">
-    <Type Name="Sellers">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="BankAccount" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Bank" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
-      <Column Name="SWIFT" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
-      <Association Name="Sellers_Invoice" Member="Invoices" ThisKey="Id" OtherKey="SellerId" Type="Invoice" />
-      <Association Name="Traders_Sellers" Member="Traders" Storage="_Trader" ThisKey="Id" OtherKey="Id" Type="Traders" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Traders" Member="Traders">
     <Type Name="Traders">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -66,9 +42,36 @@
       <Column Name="Postcode" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
       <Column Name="City" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
       <Column Name="TraderType" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Traders_Buyer" Member="Buyer" ThisKey="Id" OtherKey="Id" Type="Buyers" Cardinality="One" />
-      <Association Name="Traders_PrivatePerson" Member="PrivatePerson" ThisKey="Id" OtherKey="Id" Type="PrivatePerson" Cardinality="One" />
-      <Association Name="Traders_Sellers" Member="Seller" ThisKey="Id" OtherKey="Id" Type="Sellers" Cardinality="One" />
+      <Association Name="Traders_Buyers" Member="Buyers" ThisKey="Id" OtherKey="TraderID" Type="Buyers" />
+      <Association Name="Traders_PrivatePersons" Member="PrivatePersons" ThisKey="Id" OtherKey="TraderID" Type="PrivatePersons" />
+      <Association Name="Traders_Sellers" Member="Sellers" ThisKey="Id" OtherKey="TraderID" Type="Sellers" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Buyers" Member="Buyers">
+    <Type Name="Buyers">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TraderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Buyers_Invoice" Member="Invoices" ThisKey="Id" OtherKey="BuyerId" Type="Invoice" />
+      <Association Name="Traders_Buyers" Member="Traders" ThisKey="TraderID" OtherKey="Id" Type="Traders" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.PrivatePersons" Member="PrivatePersons">
+    <Type Name="PrivatePersons">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TraderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="PESEL" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="Traders_PrivatePersons" Member="Traders" ThisKey="TraderID" OtherKey="Id" Type="Traders" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sellers" Member="Sellers">
+    <Type Name="Sellers">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TraderID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="BankAccount" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Bank" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="SWIFT" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="Sellers_Invoice" Member="Invoices" ThisKey="Id" OtherKey="SellerId" Type="Invoice" />
+      <Association Name="Traders_Sellers" Member="Traders" ThisKey="TraderID" OtherKey="Id" Type="Traders" IsForeignKey="true" DeleteRule="CASCADE" DeleteOnNull="true" />
     </Type>
   </Table>
 </Database>

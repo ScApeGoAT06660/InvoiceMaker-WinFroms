@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace InvoiceMaker.Domains
 {
-    internal class PrivatePerson:Trader
+    internal class PrivatePerson:Buyer
     {
         public string PESEL {  get; set; }
 

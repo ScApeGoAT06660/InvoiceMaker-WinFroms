@@ -1,4 +1,5 @@
-﻿using InvoiceMaker.Domains;
+﻿using InvoiceMaker.Controls;
+using InvoiceMaker.Domains;
 using InvoiceMaker.Services;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,13 @@ namespace InvoiceMaker.Forms
     public partial class frmBuyersList : Form
     {
         DataRepository dataRepository;
+        frmInvoice _invoice;
 
-        public frmBuyersList()
+        public frmBuyersList(frmInvoice invoice)
         {
             InitializeComponent();
             dataRepository = new DataRepository();
+            _invoice = invoice;
 
             LoadTradersData();
         }
@@ -30,5 +33,40 @@ namespace InvoiceMaker.Forms
 
             dgwBuyersList.DataSource = buyers;
         }
+
+        private void btnBuyersSelect_Click(object sender, EventArgs e)
+        {
+            if (dgwBuyersList.CurrentRow != null)
+            {
+                int selectedId = Convert.ToInt32(dgwBuyersList.CurrentRow.Cells["Id"].Value);
+                Buyer selectedBuyer = dataRepository.ReturnSelectedBuyer(selectedId);
+                GlobalState.SelectedBuyer = selectedBuyer;
+
+                _invoice.ShowChosenBuyer(selectedBuyer);
+
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void dgwBuyersList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0) 
+            {
+                int selectedId = Convert.ToInt32(dgwBuyersList.Rows[e.RowIndex].Cells["Id"].Value);
+
+                Buyer selectedBuyer = dataRepository.ReturnSelectedBuyer(selectedId);
+                GlobalState.SelectedBuyer = selectedBuyer;
+
+                _invoice.ShowChosenBuyer(selectedBuyer);
+
+                this.Close();
+            }
+        }
+
+
     }
 }

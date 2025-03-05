@@ -53,10 +53,18 @@ namespace InvoiceMaker
         {
             if (lbLogInUsers.SelectedItem != null)
             {
-                int selectedId = (int)lbLogInUsers.SelectedIndex+1;
+                int selectedId = (int)lbLogInUsers.SelectedIndex + 1;
 
                 GlobalState.SelectedSeller = dataRepository.ReturnSelectedUser(selectedId);
                 GlobalState.isSetUp = true; 
+
+                invoiceManagement.Show();
+                this.Close();
+            }
+            else
+            {
+                Seller noSeller = new Seller();
+                GlobalState.SelectedSeller = noSeller;
 
                 invoiceManagement.Show();
                 this.Close();

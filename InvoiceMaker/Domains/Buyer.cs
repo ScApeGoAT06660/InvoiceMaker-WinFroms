@@ -8,5 +8,6 @@ namespace InvoiceMaker.Domains
 {
     public class Buyer:Trader
     {
+
     }
 }

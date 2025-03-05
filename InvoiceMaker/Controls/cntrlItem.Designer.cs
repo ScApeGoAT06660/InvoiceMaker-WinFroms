@@ -39,7 +39,7 @@
             this.txtNetto = new System.Windows.Forms.TextBox();
             this.lblNetto = new System.Windows.Forms.Label();
             this.lblVAT = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.txtBrutto = new System.Windows.Forms.TextBox();
             this.lblBrutto = new System.Windows.Forms.Label();
             this.pbTrashButton = new System.Windows.Forms.PictureBox();
             this.cbVAT = new System.Windows.Forms.ComboBox();
@@ -141,12 +141,12 @@
             this.lblVAT.TabIndex = 24;
             this.lblVAT.Text = "VAT %";
             // 
-            // textBox6
+            // txtBrutto
             // 
-            this.textBox6.Location = new System.Drawing.Point(655, 28);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(67, 20);
-            this.textBox6.TabIndex = 27;
+            this.txtBrutto.Location = new System.Drawing.Point(655, 28);
+            this.txtBrutto.Name = "txtBrutto";
+            this.txtBrutto.Size = new System.Drawing.Size(67, 20);
+            this.txtBrutto.TabIndex = 27;
             // 
             // lblBrutto
             // 
@@ -189,7 +189,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.Controls.Add(this.cbVAT);
             this.Controls.Add(this.pbTrashButton);
-            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.txtBrutto);
             this.Controls.Add(this.lblBrutto);
             this.Controls.Add(this.lblVAT);
             this.Controls.Add(this.txtNetto);
@@ -223,7 +223,7 @@
         private System.Windows.Forms.TextBox txtNetto;
         private System.Windows.Forms.Label lblNetto;
         private System.Windows.Forms.Label lblVAT;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox txtBrutto;
         private System.Windows.Forms.Label lblBrutto;
         private System.Windows.Forms.PictureBox pbTrashButton;
         private System.Windows.Forms.ComboBox cbVAT;

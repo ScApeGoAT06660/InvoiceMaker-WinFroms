@@ -15,7 +15,7 @@ namespace InvoiceMaker.Services
         public async Task<Traders> TakeTraderInfo(string nip)
         {
             string date = DateTime.Now.ToString("yyyy-MM-dd");
-            string url = $"https://wl-api.mf.gov.pl/api/search/nip/{5261040828}?date={date}";
+            string url = $"https://wl-api.mf.gov.pl/api/search/nip/{nip}?date={date}";
 
             using (HttpClient client = new HttpClient())
             {

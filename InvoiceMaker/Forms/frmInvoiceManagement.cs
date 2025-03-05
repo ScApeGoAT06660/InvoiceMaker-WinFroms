@@ -24,6 +24,7 @@ namespace InvoiceMaker
                 frmLogIn frmLogIn = new frmLogIn(this);
                 frmLogIn.ShowDialog();
             }
+
         }
 
         private void btnManageAdd_Click(object sender, EventArgs e)

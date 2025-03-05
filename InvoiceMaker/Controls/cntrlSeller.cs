@@ -23,17 +23,7 @@ namespace InvoiceMaker.Controls
 
         public void SaveUser()
         {
-            Seller seller = new Seller 
-            { 
-                Name = txtBuyerName.Text,
-                VATID = txtVATID.Text,
-                StreetAndNo = txtStreetAndNo.Text,
-                Postcode = txtPostcode.Text,
-                City = txtCity.Text,
-                BankAccount = txtBankAccount.Text,
-                Bank = txtBank.Text,
-                SWIFT= txtSWIFT.Text
-            };
+            Seller seller = ReturnSeller();
 
             dataRepository.SaveNewUser(seller);
         }
@@ -48,6 +38,23 @@ namespace InvoiceMaker.Controls
             txtBankAccount.Text = seller.BankAccount;
             txtBank.Text = seller.Bank;
             txtSWIFT.Text = seller.SWIFT;
+        }
+
+        public Seller ReturnSeller()
+        {
+            Seller seller = new Seller
+            {
+                Name = txtBuyerName.Text,
+                VATID = txtVATID.Text,
+                StreetAndNo = txtStreetAndNo.Text,
+                Postcode = txtPostcode.Text,
+                City = txtCity.Text,
+                BankAccount = txtBankAccount.Text,
+                Bank = txtBank.Text,
+                SWIFT = txtSWIFT.Text
+            };
+
+            return seller;
         }
 
     }

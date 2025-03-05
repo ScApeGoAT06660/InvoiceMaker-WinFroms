@@ -30,24 +30,24 @@ namespace InvoiceMaker
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertBuyers(Buyers instance);
-    partial void UpdateBuyers(Buyers instance);
-    partial void DeleteBuyers(Buyers instance);
     partial void InsertInvoice(Invoice instance);
     partial void UpdateInvoice(Invoice instance);
     partial void DeleteInvoice(Invoice instance);
-    partial void InsertItem(Item instance);
-    partial void UpdateItem(Item instance);
-    partial void DeleteItem(Item instance);
-    partial void InsertPrivatePerson(PrivatePerson instance);
-    partial void UpdatePrivatePerson(PrivatePerson instance);
-    partial void DeletePrivatePerson(PrivatePerson instance);
-    partial void InsertSellers(Sellers instance);
-    partial void UpdateSellers(Sellers instance);
-    partial void DeleteSellers(Sellers instance);
+    partial void InsertItems(Items instance);
+    partial void UpdateItems(Items instance);
+    partial void DeleteItems(Items instance);
     partial void InsertTraders(Traders instance);
     partial void UpdateTraders(Traders instance);
     partial void DeleteTraders(Traders instance);
+    partial void InsertBuyers(Buyers instance);
+    partial void UpdateBuyers(Buyers instance);
+    partial void DeleteBuyers(Buyers instance);
+    partial void InsertPrivatePersons(PrivatePersons instance);
+    partial void UpdatePrivatePersons(PrivatePersons instance);
+    partial void DeletePrivatePersons(PrivatePersons instance);
+    partial void InsertSellers(Sellers instance);
+    partial void UpdateSellers(Sellers instance);
+    partial void DeleteSellers(Sellers instance);
     #endregion
 		
 		public InvoiceMakerDBDataContext() : 
@@ -80,14 +80,6 @@ namespace InvoiceMaker
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<Buyers> Buyers
-		{
-			get
-			{
-				return this.GetTable<Buyers>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Invoice> Invoices
 		{
 			get
@@ -96,27 +88,11 @@ namespace InvoiceMaker
 			}
 		}
 		
-		public System.Data.Linq.Table<Item> Items
+		public System.Data.Linq.Table<Items> Items
 		{
 			get
 			{
-				return this.GetTable<Item>();
-			}
-		}
-		
-		public System.Data.Linq.Table<PrivatePerson> PrivatePersons
-		{
-			get
-			{
-				return this.GetTable<PrivatePerson>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Sellers> Sellers
-		{
-			get
-			{
-				return this.GetTable<Sellers>();
+				return this.GetTable<Items>();
 			}
 		}
 		
@@ -127,136 +103,29 @@ namespace InvoiceMaker
 				return this.GetTable<Traders>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Buyers")]
-	public partial class Buyers : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private EntitySet<Invoice> _Invoices;
-		
-		private EntityRef<Traders> _Trader;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    #endregion
-		
-		public Buyers()
-		{
-			this._Invoices = new EntitySet<Invoice>(new Action<Invoice>(this.attach_Invoices), new Action<Invoice>(this.detach_Invoices));
-			this._Trader = default(EntityRef<Traders>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
+		public System.Data.Linq.Table<Buyers> Buyers
 		{
 			get
 			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					if (this._Trader.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
+				return this.GetTable<Buyers>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Buyer_Invoice", Storage="_Invoices", ThisKey="Id", OtherKey="BuyerId")]
-		public EntitySet<Invoice> Invoices
+		public System.Data.Linq.Table<PrivatePersons> PrivatePersons
 		{
 			get
 			{
-				return this._Invoices;
-			}
-			set
-			{
-				this._Invoices.Assign(value);
+				return this.GetTable<PrivatePersons>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Buyer", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
-		public Traders Traders
+		public System.Data.Linq.Table<Sellers> Sellers
 		{
 			get
 			{
-				return this._Trader.Entity;
+				return this.GetTable<Sellers>();
 			}
-			set
-			{
-				Traders previousValue = this._Trader.Entity;
-				if (((previousValue != value) 
-							|| (this._Trader.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Trader.Entity = null;
-						previousValue.Buyer = null;
-					}
-					this._Trader.Entity = value;
-					if ((value != null))
-					{
-						value.Buyer = this;
-						this._Id = value.Id;
-					}
-					else
-					{
-						this._Id = default(int);
-					}
-					this.SendPropertyChanged("Traders");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Invoices(Invoice entity)
-		{
-			this.SendPropertyChanging();
-			entity.Buyers = this;
-		}
-		
-		private void detach_Invoices(Invoice entity)
-		{
-			this.SendPropertyChanging();
-			entity.Buyers = null;
 		}
 	}
 	
@@ -292,7 +161,7 @@ namespace InvoiceMaker
 		
 		private string _Notes;
 		
-		private EntitySet<Item> _Items;
+		private EntitySet<Items> _Items;
 		
 		private EntityRef<Buyers> _Buyer;
 		
@@ -332,7 +201,7 @@ namespace InvoiceMaker
 		
 		public Invoice()
 		{
-			this._Items = new EntitySet<Item>(new Action<Item>(this.attach_Items), new Action<Item>(this.detach_Items));
+			this._Items = new EntitySet<Items>(new Action<Items>(this.attach_Items), new Action<Items>(this.detach_Items));
 			this._Buyer = default(EntityRef<Buyers>);
 			this._Seller = default(EntityRef<Sellers>);
 			OnCreated();
@@ -607,7 +476,7 @@ namespace InvoiceMaker
 		}
 		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Invoice_Item", Storage="_Items", ThisKey="Id", OtherKey="InvoiceId")]
-		public EntitySet<Item> Items
+		public EntitySet<Items> Items
 		{
 			get
 			{
@@ -619,7 +488,7 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Buyer_Invoice", Storage="_Buyer", ThisKey="BuyerId", OtherKey="Id", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Buyers_Invoice", Storage="_Buyer", ThisKey="BuyerId", OtherKey="Id", IsForeignKey=true)]
 		public Buyers Buyers
 		{
 			get
@@ -707,13 +576,13 @@ namespace InvoiceMaker
 			}
 		}
 		
-		private void attach_Items(Item entity)
+		private void attach_Items(Items entity)
 		{
 			this.SendPropertyChanging();
 			entity.Invoice = this;
 		}
 		
-		private void detach_Items(Item entity)
+		private void detach_Items(Items entity)
 		{
 			this.SendPropertyChanging();
 			entity.Invoice = null;
@@ -721,7 +590,7 @@ namespace InvoiceMaker
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Items")]
-	public partial class Item : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class Items : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -766,7 +635,7 @@ namespace InvoiceMaker
     partial void OnBruttoChanged();
     #endregion
 		
-		public Item()
+		public Items()
 		{
 			this._Invoice = default(EntityRef<Invoice>);
 			OnCreated();
@@ -991,336 +860,6 @@ namespace InvoiceMaker
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PrivatePersons")]
-	public partial class PrivatePerson : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _PESEL;
-		
-		private EntityRef<Traders> _Trader;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnPESELChanging(string value);
-    partial void OnPESELChanged();
-    #endregion
-		
-		public PrivatePerson()
-		{
-			this._Trader = default(EntityRef<Traders>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					if (this._Trader.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PESEL", DbType="NVarChar(20)")]
-		public string PESEL
-		{
-			get
-			{
-				return this._PESEL;
-			}
-			set
-			{
-				if ((this._PESEL != value))
-				{
-					this.OnPESELChanging(value);
-					this.SendPropertyChanging();
-					this._PESEL = value;
-					this.SendPropertyChanged("PESEL");
-					this.OnPESELChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_PrivatePerson", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
-		public Traders Traders
-		{
-			get
-			{
-				return this._Trader.Entity;
-			}
-			set
-			{
-				Traders previousValue = this._Trader.Entity;
-				if (((previousValue != value) 
-							|| (this._Trader.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Trader.Entity = null;
-						previousValue.PrivatePerson = null;
-					}
-					this._Trader.Entity = value;
-					if ((value != null))
-					{
-						value.PrivatePerson = this;
-						this._Id = value.Id;
-					}
-					else
-					{
-						this._Id = default(int);
-					}
-					this.SendPropertyChanged("Traders");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sellers")]
-	public partial class Sellers : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _BankAccount;
-		
-		private string _Bank;
-		
-		private string _SWIFT;
-		
-		private EntitySet<Invoice> _Invoices;
-		
-		private EntityRef<Traders> _Trader;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnBankAccountChanging(string value);
-    partial void OnBankAccountChanged();
-    partial void OnBankChanging(string value);
-    partial void OnBankChanged();
-    partial void OnSWIFTChanging(string value);
-    partial void OnSWIFTChanged();
-    #endregion
-		
-		public Sellers()
-		{
-			this._Invoices = new EntitySet<Invoice>(new Action<Invoice>(this.attach_Invoices), new Action<Invoice>(this.detach_Invoices));
-			this._Trader = default(EntityRef<Traders>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					if (this._Trader.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankAccount", DbType="NVarChar(50)")]
-		public string BankAccount
-		{
-			get
-			{
-				return this._BankAccount;
-			}
-			set
-			{
-				if ((this._BankAccount != value))
-				{
-					this.OnBankAccountChanging(value);
-					this.SendPropertyChanging();
-					this._BankAccount = value;
-					this.SendPropertyChanged("BankAccount");
-					this.OnBankAccountChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bank", DbType="NVarChar(255)")]
-		public string Bank
-		{
-			get
-			{
-				return this._Bank;
-			}
-			set
-			{
-				if ((this._Bank != value))
-				{
-					this.OnBankChanging(value);
-					this.SendPropertyChanging();
-					this._Bank = value;
-					this.SendPropertyChanged("Bank");
-					this.OnBankChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SWIFT", DbType="NVarChar(20)")]
-		public string SWIFT
-		{
-			get
-			{
-				return this._SWIFT;
-			}
-			set
-			{
-				if ((this._SWIFT != value))
-				{
-					this.OnSWIFTChanging(value);
-					this.SendPropertyChanging();
-					this._SWIFT = value;
-					this.SendPropertyChanged("SWIFT");
-					this.OnSWIFTChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sellers_Invoice", Storage="_Invoices", ThisKey="Id", OtherKey="SellerId")]
-		public EntitySet<Invoice> Invoices
-		{
-			get
-			{
-				return this._Invoices;
-			}
-			set
-			{
-				this._Invoices.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Sellers", Storage="_Trader", ThisKey="Id", OtherKey="Id", IsForeignKey=true)]
-		public Traders Traders
-		{
-			get
-			{
-				return this._Trader.Entity;
-			}
-			set
-			{
-				Traders previousValue = this._Trader.Entity;
-				if (((previousValue != value) 
-							|| (this._Trader.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Trader.Entity = null;
-						previousValue.Seller = null;
-					}
-					this._Trader.Entity = value;
-					if ((value != null))
-					{
-						value.Seller = this;
-						this._Id = value.Id;
-					}
-					else
-					{
-						this._Id = default(int);
-					}
-					this.SendPropertyChanged("Traders");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Invoices(Invoice entity)
-		{
-			this.SendPropertyChanging();
-			entity.Sellers = this;
-		}
-		
-		private void detach_Invoices(Invoice entity)
-		{
-			this.SendPropertyChanging();
-			entity.Sellers = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Traders")]
 	public partial class Traders : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1341,11 +880,11 @@ namespace InvoiceMaker
 		
 		private string _TraderType;
 		
-		private EntityRef<Buyers> _Buyer;
+		private EntitySet<Buyers> _Buyers;
 		
-		private EntityRef<PrivatePerson> _PrivatePerson;
+		private EntitySet<PrivatePersons> _PrivatePersons;
 		
-		private EntityRef<Sellers> _Seller;
+		private EntitySet<Sellers> _Sellers;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -1369,9 +908,9 @@ namespace InvoiceMaker
 		
 		public Traders()
 		{
-			this._Buyer = default(EntityRef<Buyers>);
-			this._PrivatePerson = default(EntityRef<PrivatePerson>);
-			this._Seller = default(EntityRef<Sellers>);
+			this._Buyers = new EntitySet<Buyers>(new Action<Buyers>(this.attach_Buyers), new Action<Buyers>(this.detach_Buyers));
+			this._PrivatePersons = new EntitySet<PrivatePersons>(new Action<PrivatePersons>(this.attach_PrivatePersons), new Action<PrivatePersons>(this.detach_PrivatePersons));
+			this._Sellers = new EntitySet<Sellers>(new Action<Sellers>(this.attach_Sellers), new Action<Sellers>(this.detach_Sellers));
 			OnCreated();
 		}
 		
@@ -1515,89 +1054,220 @@ namespace InvoiceMaker
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Buyer", Storage="_Buyer", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
-		public Buyers Buyer
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Buyers", Storage="_Buyers", ThisKey="Id", OtherKey="TraderID")]
+		public EntitySet<Buyers> Buyers
 		{
 			get
 			{
-				return this._Buyer.Entity;
+				return this._Buyers;
 			}
 			set
 			{
-				Buyers previousValue = this._Buyer.Entity;
-				if (((previousValue != value) 
-							|| (this._Buyer.HasLoadedOrAssignedValue == false)))
+				this._Buyers.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_PrivatePersons", Storage="_PrivatePersons", ThisKey="Id", OtherKey="TraderID")]
+		public EntitySet<PrivatePersons> PrivatePersons
+		{
+			get
+			{
+				return this._PrivatePersons;
+			}
+			set
+			{
+				this._PrivatePersons.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Sellers", Storage="_Sellers", ThisKey="Id", OtherKey="TraderID")]
+		public EntitySet<Sellers> Sellers
+		{
+			get
+			{
+				return this._Sellers;
+			}
+			set
+			{
+				this._Sellers.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Buyers(Buyers entity)
+		{
+			this.SendPropertyChanging();
+			entity.Traders = this;
+		}
+		
+		private void detach_Buyers(Buyers entity)
+		{
+			this.SendPropertyChanging();
+			entity.Traders = null;
+		}
+		
+		private void attach_PrivatePersons(PrivatePersons entity)
+		{
+			this.SendPropertyChanging();
+			entity.Traders = this;
+		}
+		
+		private void detach_PrivatePersons(PrivatePersons entity)
+		{
+			this.SendPropertyChanging();
+			entity.Traders = null;
+		}
+		
+		private void attach_Sellers(Sellers entity)
+		{
+			this.SendPropertyChanging();
+			entity.Traders = this;
+		}
+		
+		private void detach_Sellers(Sellers entity)
+		{
+			this.SendPropertyChanging();
+			entity.Traders = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Buyers")]
+	public partial class Buyers : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _TraderID;
+		
+		private EntitySet<Invoice> _Invoices;
+		
+		private EntityRef<Traders> _Traders;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTraderIDChanging(int value);
+    partial void OnTraderIDChanged();
+    #endregion
+		
+		public Buyers()
+		{
+			this._Invoices = new EntitySet<Invoice>(new Action<Invoice>(this.attach_Invoices), new Action<Invoice>(this.detach_Invoices));
+			this._Traders = default(EntityRef<Traders>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
 				{
+					this.OnIdChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Buyer.Entity = null;
-						previousValue.Traders = null;
-					}
-					this._Buyer.Entity = value;
-					if ((value != null))
-					{
-						value.Traders = this;
-					}
-					this.SendPropertyChanged("Buyer");
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_PrivatePerson", Storage="_PrivatePerson", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
-		public PrivatePerson PrivatePerson
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TraderID", DbType="Int NOT NULL")]
+		public int TraderID
 		{
 			get
 			{
-				return this._PrivatePerson.Entity;
+				return this._TraderID;
 			}
 			set
 			{
-				PrivatePerson previousValue = this._PrivatePerson.Entity;
-				if (((previousValue != value) 
-							|| (this._PrivatePerson.HasLoadedOrAssignedValue == false)))
+				if ((this._TraderID != value))
 				{
+					if (this._Traders.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTraderIDChanging(value);
 					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._PrivatePerson.Entity = null;
-						previousValue.Traders = null;
-					}
-					this._PrivatePerson.Entity = value;
-					if ((value != null))
-					{
-						value.Traders = this;
-					}
-					this.SendPropertyChanged("PrivatePerson");
+					this._TraderID = value;
+					this.SendPropertyChanged("TraderID");
+					this.OnTraderIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Sellers", Storage="_Seller", ThisKey="Id", OtherKey="Id", IsUnique=true, IsForeignKey=false)]
-		public Sellers Seller
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Buyers_Invoice", Storage="_Invoices", ThisKey="Id", OtherKey="BuyerId")]
+		public EntitySet<Invoice> Invoices
 		{
 			get
 			{
-				return this._Seller.Entity;
+				return this._Invoices;
 			}
 			set
 			{
-				Sellers previousValue = this._Seller.Entity;
+				this._Invoices.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Buyers", Storage="_Traders", ThisKey="TraderID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Traders Traders
+		{
+			get
+			{
+				return this._Traders.Entity;
+			}
+			set
+			{
+				Traders previousValue = this._Traders.Entity;
 				if (((previousValue != value) 
-							|| (this._Seller.HasLoadedOrAssignedValue == false)))
+							|| (this._Traders.HasLoadedOrAssignedValue == false)))
 				{
 					this.SendPropertyChanging();
 					if ((previousValue != null))
 					{
-						this._Seller.Entity = null;
-						previousValue.Traders = null;
+						this._Traders.Entity = null;
+						previousValue.Buyers.Remove(this);
 					}
-					this._Seller.Entity = value;
+					this._Traders.Entity = value;
 					if ((value != null))
 					{
-						value.Traders = this;
+						value.Buyers.Add(this);
+						this._TraderID = value.Id;
 					}
-					this.SendPropertyChanged("Seller");
+					else
+					{
+						this._TraderID = default(int);
+					}
+					this.SendPropertyChanged("Traders");
 				}
 			}
 		}
@@ -1620,6 +1290,396 @@ namespace InvoiceMaker
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_Invoices(Invoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.Buyers = this;
+		}
+		
+		private void detach_Invoices(Invoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.Buyers = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.PrivatePersons")]
+	public partial class PrivatePersons : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _TraderID;
+		
+		private string _PESEL;
+		
+		private EntityRef<Traders> _Traders;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTraderIDChanging(int value);
+    partial void OnTraderIDChanged();
+    partial void OnPESELChanging(string value);
+    partial void OnPESELChanged();
+    #endregion
+		
+		public PrivatePersons()
+		{
+			this._Traders = default(EntityRef<Traders>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TraderID", DbType="Int NOT NULL")]
+		public int TraderID
+		{
+			get
+			{
+				return this._TraderID;
+			}
+			set
+			{
+				if ((this._TraderID != value))
+				{
+					if (this._Traders.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTraderIDChanging(value);
+					this.SendPropertyChanging();
+					this._TraderID = value;
+					this.SendPropertyChanged("TraderID");
+					this.OnTraderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PESEL", DbType="NVarChar(20)")]
+		public string PESEL
+		{
+			get
+			{
+				return this._PESEL;
+			}
+			set
+			{
+				if ((this._PESEL != value))
+				{
+					this.OnPESELChanging(value);
+					this.SendPropertyChanging();
+					this._PESEL = value;
+					this.SendPropertyChanged("PESEL");
+					this.OnPESELChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_PrivatePersons", Storage="_Traders", ThisKey="TraderID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Traders Traders
+		{
+			get
+			{
+				return this._Traders.Entity;
+			}
+			set
+			{
+				Traders previousValue = this._Traders.Entity;
+				if (((previousValue != value) 
+							|| (this._Traders.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Traders.Entity = null;
+						previousValue.PrivatePersons.Remove(this);
+					}
+					this._Traders.Entity = value;
+					if ((value != null))
+					{
+						value.PrivatePersons.Add(this);
+						this._TraderID = value.Id;
+					}
+					else
+					{
+						this._TraderID = default(int);
+					}
+					this.SendPropertyChanged("Traders");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Sellers")]
+	public partial class Sellers : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _TraderID;
+		
+		private string _BankAccount;
+		
+		private string _Bank;
+		
+		private string _SWIFT;
+		
+		private EntitySet<Invoice> _Invoices;
+		
+		private EntityRef<Traders> _Traders;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnTraderIDChanging(int value);
+    partial void OnTraderIDChanged();
+    partial void OnBankAccountChanging(string value);
+    partial void OnBankAccountChanged();
+    partial void OnBankChanging(string value);
+    partial void OnBankChanged();
+    partial void OnSWIFTChanging(string value);
+    partial void OnSWIFTChanged();
+    #endregion
+		
+		public Sellers()
+		{
+			this._Invoices = new EntitySet<Invoice>(new Action<Invoice>(this.attach_Invoices), new Action<Invoice>(this.detach_Invoices));
+			this._Traders = default(EntityRef<Traders>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TraderID", DbType="Int NOT NULL")]
+		public int TraderID
+		{
+			get
+			{
+				return this._TraderID;
+			}
+			set
+			{
+				if ((this._TraderID != value))
+				{
+					if (this._Traders.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTraderIDChanging(value);
+					this.SendPropertyChanging();
+					this._TraderID = value;
+					this.SendPropertyChanged("TraderID");
+					this.OnTraderIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BankAccount", DbType="NVarChar(50)")]
+		public string BankAccount
+		{
+			get
+			{
+				return this._BankAccount;
+			}
+			set
+			{
+				if ((this._BankAccount != value))
+				{
+					this.OnBankAccountChanging(value);
+					this.SendPropertyChanging();
+					this._BankAccount = value;
+					this.SendPropertyChanged("BankAccount");
+					this.OnBankAccountChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Bank", DbType="NVarChar(255)")]
+		public string Bank
+		{
+			get
+			{
+				return this._Bank;
+			}
+			set
+			{
+				if ((this._Bank != value))
+				{
+					this.OnBankChanging(value);
+					this.SendPropertyChanging();
+					this._Bank = value;
+					this.SendPropertyChanged("Bank");
+					this.OnBankChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SWIFT", DbType="NVarChar(20)")]
+		public string SWIFT
+		{
+			get
+			{
+				return this._SWIFT;
+			}
+			set
+			{
+				if ((this._SWIFT != value))
+				{
+					this.OnSWIFTChanging(value);
+					this.SendPropertyChanging();
+					this._SWIFT = value;
+					this.SendPropertyChanged("SWIFT");
+					this.OnSWIFTChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sellers_Invoice", Storage="_Invoices", ThisKey="Id", OtherKey="SellerId")]
+		public EntitySet<Invoice> Invoices
+		{
+			get
+			{
+				return this._Invoices;
+			}
+			set
+			{
+				this._Invoices.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Traders_Sellers", Storage="_Traders", ThisKey="TraderID", OtherKey="Id", IsForeignKey=true, DeleteOnNull=true, DeleteRule="CASCADE")]
+		public Traders Traders
+		{
+			get
+			{
+				return this._Traders.Entity;
+			}
+			set
+			{
+				Traders previousValue = this._Traders.Entity;
+				if (((previousValue != value) 
+							|| (this._Traders.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Traders.Entity = null;
+						previousValue.Sellers.Remove(this);
+					}
+					this._Traders.Entity = value;
+					if ((value != null))
+					{
+						value.Sellers.Add(this);
+						this._TraderID = value.Id;
+					}
+					else
+					{
+						this._TraderID = default(int);
+					}
+					this.SendPropertyChanged("Traders");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Invoices(Invoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sellers = this;
+		}
+		
+		private void detach_Invoices(Invoice entity)
+		{
+			this.SendPropertyChanging();
+			entity.Sellers = null;
 		}
 	}
 }

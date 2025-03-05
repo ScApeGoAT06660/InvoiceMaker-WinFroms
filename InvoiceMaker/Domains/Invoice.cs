@@ -20,8 +20,6 @@ namespace InvoiceMaker.Domains
         public string SellerSignature { get; set; }
         public string BuyerSignature { get; set; }
         public string Notes { get; set; }
-
-        // Nawigacyjne właściwości dla relacji
         public virtual Seller Seller { get; set; }
         public virtual Buyer Buyer { get; set; }
     }

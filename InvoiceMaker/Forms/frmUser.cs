@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,8 +22,7 @@ namespace InvoiceMaker.Forms
         private void btnSellerSave_Click(object sender, EventArgs e)
         {
             cntrlSeller.SaveUser();
-
-
+            this.Close();
 
         }
 

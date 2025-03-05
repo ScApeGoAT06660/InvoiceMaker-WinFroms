@@ -24,7 +24,17 @@ namespace InvoiceMaker.Controls
     {
         MRiFController mrifController;
         DataRepository dataRepository;
+        public frmInvoice invoice;
+        
         public cntrlBuyer()
+        {
+            InitializeComponent();
+
+            mrifController = new MRiFController();
+            dataRepository = new DataRepository();
+        }
+
+        public cntrlBuyer(frmInvoice invoice)
         {
             InitializeComponent();
 
@@ -60,7 +70,7 @@ namespace InvoiceMaker.Controls
 
             try
             {
-                Traders trader = await mrifController.TakeTraderInfo(nip);
+                Traders trader = await mrifController.TakeTraderInfo("1130093176");
 
                 if (trader != null)
                 {
@@ -80,11 +90,12 @@ namespace InvoiceMaker.Controls
                 MessageBox.Show($"Wystąpił błąd: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            CheckIfBuyerAlreadyExist();
         }
 
         private void pbTraderListButton_Click(object sender, EventArgs e)
         {
-            frmBuyersList frmBuyersList = new frmBuyersList();
+            frmBuyersList frmBuyersList = new frmBuyersList(invoice);
             frmBuyersList.ShowDialog();
         }
 
@@ -94,25 +105,39 @@ namespace InvoiceMaker.Controls
             {
                 e.SuppressKeyPress = true;
 
-                if (!dataRepository.CheckIfVATIDExist(txtVATID.Text))
+                CheckIfBuyerAlreadyExist();
+            }
+        }
+
+        private void CheckIfBuyerAlreadyExist()
+        {
+            if (!dataRepository.CheckIfVATIDExist(txtVATID.Text))
+            {
+                DialogResult result = MessageBox.Show("Czy chcesz zapisać tego kontreahenta do bazy?", "Potwierdzenie", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
                 {
-                    DialogResult result = MessageBox.Show("Czy chcesz zapisać tego kontreahenta do bazy?", "Potwierdzenie", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-
-                    if (result == DialogResult.Yes)
+                    Buyer buyer = new Buyer
                     {
-                        Buyer buyer = new Buyer
-                        {
-                            Name = txtBuyerName.Text,
-                            VATID = txtVATID.Text,
-                            StreetAndNo = txtStreetAndNo.Text,
-                            Postcode = txtPostcode.Text,
-                            City = txtCity.Text
-                       };
+                        Name = txtBuyerName.Text,
+                        VATID = txtVATID.Text,
+                        StreetAndNo = txtStreetAndNo.Text,
+                        Postcode = txtPostcode.Text,
+                        City = txtCity.Text
+                    };
 
-                        dataRepository.SaveNewBuyer(buyer);
-                    }
+                    dataRepository.SaveNewBuyer(buyer);
                 }
             }
+        }
+
+        public void DisplayBuyer(Buyer buyer)
+        {
+            txtBuyerName.Text = buyer.Name;
+            txtVATID.Text = buyer.VATID;
+            txtStreetAndNo.Text = buyer.StreetAndNo;
+            txtPostcode.Text = buyer.Postcode;
+            txtCity.Text = buyer.City;
         }
     }
 }

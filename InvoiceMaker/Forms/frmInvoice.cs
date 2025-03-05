@@ -23,6 +23,7 @@ namespace InvoiceMaker
             InitializeComponent();
             mrifController = new MRiFController();
             cntrlSeller.SetUser(GlobalState.SelectedSeller);
+            cntrlBuyer.invoice = this;
         }
 
         private void frmInvoice_Resize(object sender, EventArgs e)
@@ -35,8 +36,10 @@ namespace InvoiceMaker
 
         private void btnAddItem_Click(object sender, EventArgs e)
         {
-            cntrlItem item = new cntrlItem(flpItems);
+            cntrlItem item = new cntrlItem(flpItems);   
             flpItems.Controls.Add(item);
+
+            item.SetID(flpItems.Controls.Count.ToString());
         }
 
         private void btnDrop_Click(object sender, EventArgs e)
@@ -57,13 +60,34 @@ namespace InvoiceMaker
                 IssueDate = DateTime.Now,
                 SaleDate = DateTime.Now,
                 Place = txtPlace.Text,
-                //uzu
+                SellerId = GlobalState.SelectedSeller.Id,
+                BuyerId = GlobalState.SelectedBuyer.Id,
+                //BuyerType = GlobalState.SelectedBuyer.
+                Items = 
                 PaymentType = cbPaymentType.Text,
                 PaymentDeadline = cbPaymentDeadline.Text,
                 SellerSignature = txtSellerSignature.Text,
-                BuyerSignature = txtSellerSignature.Text,
+                BuyerSignature = txtBuyerSignature.Text,
                 Notes = txtComment.Text,
             };
         }
+
+        public void ShowChosenBuyer(Buyer buyer)
+        {
+            cntrlBuyer.DisplayBuyer(buyer);
+        }
+
+        public List<Item> ReturnItemList()
+        {
+            List<Item> list = new List<Item>();
+            int childCountinItemPanel = flpItems.Controls.Count;
+
+            for (int i = 0; i < childCountinItemPanel; i++)
+            {
+                list.Add()
+            }
+        }
+
+        
     }
 }

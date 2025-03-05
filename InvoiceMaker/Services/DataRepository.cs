@@ -30,7 +30,7 @@ namespace InvoiceMaker.Services
                 
                 var newSeller = new Sellers
                 {
-                    Id = trader.Id, 
+                    TraderID = trader.Id, 
                     BankAccount = seller.BankAccount,
                     Bank = seller.Bank,
                     SWIFT = seller.SWIFT
@@ -58,10 +58,13 @@ namespace InvoiceMaker.Services
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
-                var traderInfo = db.Traders
-                    .FirstOrDefault(s => s.Id == id);
+                var sellerID = db.Sellers.FirstOrDefault(s => s.Id == id);
 
-                var sellerInfo = db.Sellers.FirstOrDefault(s => s.Id == id);
+                var traderInfo = db.Traders
+                    .FirstOrDefault(s => s.Id == sellerID.Id);
+
+                var sellerInfo = db.Sellers.FirstOrDefault(s => s.Id == sellerID.Id);
+
 
                 Seller seller = new Seller
                 {
@@ -112,7 +115,7 @@ namespace InvoiceMaker.Services
 
                 var newBuyer = new Buyers
                 {
-                    Id = trader.Id
+                    TraderID = trader.Id
                 };
 
                 db.Buyers.InsertOnSubmit(newBuyer);
@@ -129,12 +132,14 @@ namespace InvoiceMaker.Services
                 var buyers = db.Traders
                                 .Where(v => v.TraderType == TraderTypes.Buyer.ToString())
                                 .ToList();
+                var buyersID = db.Buyers.ToList();
 
 
                 foreach (var buyer in buyers)
                 { 
                     Buyer buyerItem = new Buyer
                     {
+                        Id = buyer.Id,
                         Name = buyer.Name,
                         VATID = buyer.VATID,
                         StreetAndNo = buyer.StreetAndNo,
@@ -145,7 +150,35 @@ namespace InvoiceMaker.Services
                     buyerList.Add(buyerItem);
                 }
 
+                foreach (var buyer in buyers)
+                {
+                    buyer.Id += 1;
+                }
+
                 return buyerList;
+            }
+        }
+
+        public Buyer ReturnSelectedBuyer(int id)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var buyerID = db.Buyers.FirstOrDefault(s => s.Id == id);
+
+                var traderInfo = db.Traders
+                    .FirstOrDefault(s => s.Id == buyerID.Id);
+
+                Buyer buyer = new Buyer
+                {
+                    Id = traderInfo.Id,
+                    Name = traderInfo.Name,
+                    VATID = traderInfo.VATID,
+                    StreetAndNo = traderInfo.StreetAndNo,
+                    Postcode = traderInfo.Postcode,
+                    City = traderInfo.City,
+                };
+
+                return buyer;
             }
         }
     }

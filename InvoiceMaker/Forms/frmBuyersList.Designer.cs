@@ -41,6 +41,7 @@
             this.dgwBuyersList.RowHeadersWidth = 45;
             this.dgwBuyersList.Size = new System.Drawing.Size(896, 605);
             this.dgwBuyersList.TabIndex = 0;
+            this.dgwBuyersList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgwBuyersList_CellDoubleClick);
             // 
             // btnBuyersSelect
             // 
@@ -51,6 +52,7 @@
             this.btnBuyersSelect.TabIndex = 16;
             this.btnBuyersSelect.Text = "Wybierz";
             this.btnBuyersSelect.UseVisualStyleBackColor = true;
+            this.btnBuyersSelect.Click += new System.EventHandler(this.btnBuyersSelect_Click);
             // 
             // frmBuyersList
             // 

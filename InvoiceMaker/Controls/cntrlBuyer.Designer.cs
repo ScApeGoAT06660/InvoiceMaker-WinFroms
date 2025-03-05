@@ -68,7 +68,6 @@
             this.txtVATID.Name = "txtVATID";
             this.txtVATID.Size = new System.Drawing.Size(304, 20);
             this.txtVATID.TabIndex = 5;
-            this.txtVATID.Text = "5261040828";
             this.txtVATID.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtVATID_KeyDown);
             // 
             // lblVATID
