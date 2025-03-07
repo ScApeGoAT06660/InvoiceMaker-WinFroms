@@ -14,7 +14,7 @@ namespace InvoiceMaker.Domains
         public int SellerId { get; set; } //ReturnSellerId
         public int BuyerId { get; set; } //ReturnBuyerId
         public string BuyerType { get; set; } //ReturnBuyerType
-        public virtual List<Item> Items { get; set; } = new List<Item>(); //ReturnItemList
+        public virtual List<Item> Items { get; set; } //ReturnItemList
         public string PaymentType { get; set; }
         public string PaymentDeadline { get; set; }
         public string SellerSignature { get; set; }

@@ -13,3 +13,4 @@ namespace InvoiceMaker.Domains
         public static bool isSetUp { get; set; }
     }
 }
+

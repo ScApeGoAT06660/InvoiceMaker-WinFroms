@@ -120,6 +120,7 @@
             this.txtNetto.Name = "txtNetto";
             this.txtNetto.Size = new System.Drawing.Size(67, 20);
             this.txtNetto.TabIndex = 23;
+            this.txtNetto.TextChanged += new System.EventHandler(this.txtNetto_TextChanged);
             // 
             // lblNetto
             // 
@@ -147,6 +148,7 @@
             this.txtBrutto.Name = "txtBrutto";
             this.txtBrutto.Size = new System.Drawing.Size(67, 20);
             this.txtBrutto.TabIndex = 27;
+            this.txtBrutto.TextChanged += new System.EventHandler(this.txtBrutto_TextChanged);
             // 
             // lblBrutto
             // 
@@ -183,6 +185,7 @@
             this.cbVAT.Name = "cbVAT";
             this.cbVAT.Size = new System.Drawing.Size(66, 21);
             this.cbVAT.TabIndex = 29;
+            this.cbVAT.SelectedIndexChanged += new System.EventHandler(this.cbVAT_SelectedIndexChanged);
             // 
             // cntrlItem
             // 

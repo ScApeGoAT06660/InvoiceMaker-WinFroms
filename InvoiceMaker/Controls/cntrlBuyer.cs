@@ -70,15 +70,15 @@ namespace InvoiceMaker.Controls
 
             try
             {
-                Traders trader = await mrifController.TakeTraderInfo("1130093176");
+                Buyer buyer = await mrifController.TakeTraderInfo(nip);
 
-                if (trader != null)
+                if (buyer != null)
                 {
-                   txtBuyerName.Text = trader.Name;
+                   txtBuyerName.Text = buyer.Name;
                    txtVATID.Text = nip;
-                   txtStreetAndNo.Text = trader.StreetAndNo;
-                   txtPostcode.Text = trader.Postcode;
-                   txtCity.Text = trader.City;
+                   txtStreetAndNo.Text = buyer.StreetAndNo;
+                   txtPostcode.Text = buyer.Postcode;
+                   txtCity.Text = buyer.City;
                 }
                 else
                 {
@@ -99,11 +99,41 @@ namespace InvoiceMaker.Controls
             frmBuyersList.ShowDialog();
         }
 
-        private void txtVATID_KeyDown(object sender, KeyEventArgs e)
+        private async void txtVATID_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter) 
             {
                 e.SuppressKeyPress = true;
+
+                string nip = txtVATID.Text;
+
+                if (string.IsNullOrWhiteSpace(nip))
+                {
+                    MessageBox.Show("Proszę podać numer NIP.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                try
+                {
+                    Buyer buyer = await mrifController.TakeTraderInfo(nip);
+
+                    if (buyer != null)
+                    {
+                        txtBuyerName.Text = buyer.Name;
+                        txtVATID.Text = nip;
+                        txtStreetAndNo.Text = buyer.StreetAndNo;
+                        txtPostcode.Text = buyer.Postcode;
+                        txtCity.Text = buyer.City;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Nie znaleziono firmy o podanym NIP.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Wystąpił błąd: {ex.Message}", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
 
                 CheckIfBuyerAlreadyExist();
             }
@@ -127,9 +157,15 @@ namespace InvoiceMaker.Controls
                     };
 
                     dataRepository.SaveNewBuyer(buyer);
+
+                    Buyer returnFreshlyAdded = dataRepository.ReturnFreshlyAddedBuyer(buyer.VATID);
+
+                    GlobalState.SelectedBuyer = returnFreshlyAdded;
+                    MessageBox.Show(GlobalState.SelectedBuyer.Id.ToString());
                 }
             }
         }
+
 
         public void DisplayBuyer(Buyer buyer)
         {
@@ -138,6 +174,14 @@ namespace InvoiceMaker.Controls
             txtStreetAndNo.Text = buyer.StreetAndNo;
             txtPostcode.Text = buyer.Postcode;
             txtCity.Text = buyer.City;
+        }
+
+        public string ReturnBuyerType()
+        {
+            if(rbBusinessType.Checked)
+                return TraderTypes.Buyer.ToString();
+            else 
+                return TraderTypes.PrivatePerson.ToString();
         }
     }
 }

@@ -41,9 +41,7 @@
             this.lblInvoiceNo = new System.Windows.Forms.Label();
             this.gbEntityDetails = new System.Windows.Forms.GroupBox();
             this.gbBuyer = new System.Windows.Forms.GroupBox();
-            this.cntrlBuyer = new InvoiceMaker.Controls.cntrlBuyer();
             this.gbSeller = new System.Windows.Forms.GroupBox();
-            this.cntrlSeller = new InvoiceMaker.Controls.cntrlSeller();
             this.gbItems = new System.Windows.Forms.GroupBox();
             this.pnlSummary = new System.Windows.Forms.Panel();
             this.txtBruttoSummary = new System.Windows.Forms.TextBox();
@@ -68,6 +66,8 @@
             this.lblBuyerSignature = new System.Windows.Forms.Label();
             this.txtSellerSignature = new System.Windows.Forms.TextBox();
             this.lblSellerSignature = new System.Windows.Forms.Label();
+            this.cntrlBuyer = new InvoiceMaker.Controls.cntrlBuyer();
+            this.cntrlSeller = new InvoiceMaker.Controls.cntrlSeller();
             this.pnlMainAddInvoice.SuspendLayout();
             this.flpMainContainer.SuspendLayout();
             this.gbHeadline.SuspendLayout();
@@ -229,15 +229,6 @@
             this.gbBuyer.TabStop = false;
             this.gbBuyer.Text = "Kupujący";
             // 
-            // cntrlBuyer
-            // 
-            this.cntrlBuyer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cntrlBuyer.Location = new System.Drawing.Point(10, 24);
-            this.cntrlBuyer.Name = "cntrlBuyer";
-            this.cntrlBuyer.Size = new System.Drawing.Size(327, 330);
-            this.cntrlBuyer.TabIndex = 0;
-            this.cntrlBuyer.Load += new System.EventHandler(this.cntrlBuyer_Load);
-            // 
             // gbSeller
             // 
             this.gbSeller.Controls.Add(this.cntrlSeller);
@@ -250,14 +241,6 @@
             this.gbSeller.TabIndex = 1;
             this.gbSeller.TabStop = false;
             this.gbSeller.Text = "Sprzedawca";
-            // 
-            // cntrlSeller
-            // 
-            this.cntrlSeller.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.cntrlSeller.Location = new System.Drawing.Point(7, 25);
-            this.cntrlSeller.Name = "cntrlSeller";
-            this.cntrlSeller.Size = new System.Drawing.Size(333, 324);
-            this.cntrlSeller.TabIndex = 0;
             // 
             // gbItems
             // 
@@ -533,6 +516,23 @@
             this.lblSellerSignature.Size = new System.Drawing.Size(79, 17);
             this.lblSellerSignature.TabIndex = 2;
             this.lblSellerSignature.Text = "Wystawca";
+            // 
+            // cntrlBuyer
+            // 
+            this.cntrlBuyer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cntrlBuyer.Location = new System.Drawing.Point(10, 24);
+            this.cntrlBuyer.Name = "cntrlBuyer";
+            this.cntrlBuyer.Size = new System.Drawing.Size(327, 330);
+            this.cntrlBuyer.TabIndex = 0;
+            this.cntrlBuyer.Load += new System.EventHandler(this.cntrlBuyer_Load);
+            // 
+            // cntrlSeller
+            // 
+            this.cntrlSeller.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.cntrlSeller.Location = new System.Drawing.Point(7, 25);
+            this.cntrlSeller.Name = "cntrlSeller";
+            this.cntrlSeller.Size = new System.Drawing.Size(333, 324);
+            this.cntrlSeller.TabIndex = 0;
             // 
             // frmInvoice
             // 
