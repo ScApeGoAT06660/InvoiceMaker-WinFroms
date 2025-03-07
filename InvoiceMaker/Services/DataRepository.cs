@@ -42,6 +42,47 @@ namespace InvoiceMaker.Services
             }
         }
 
+        public void SaveEditedUser(Seller editedSeller)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var sellerId = db.Sellers.FirstOrDefault(s => s.Id == editedSeller.Id);
+
+                var sellerToEdit = db.Traders
+                    .FirstOrDefault(s => s.Id == sellerId.TraderID);
+
+                var sellerInfo = db.Sellers.FirstOrDefault(s => s.Id == sellerId.Id);
+
+                if (sellerInfo != null) 
+                {
+                    sellerToEdit.Name = editedSeller.Name;
+                    sellerToEdit.VATID = editedSeller.VATID;
+                    sellerToEdit.StreetAndNo = editedSeller.StreetAndNo;
+                    sellerToEdit.Postcode = editedSeller.Postcode;
+                    sellerToEdit.City = editedSeller.City;
+
+                    sellerInfo.BankAccount = editedSeller.BankAccount;
+                    sellerInfo.Bank = editedSeller.Bank;
+                    sellerInfo.SWIFT = editedSeller.SWIFT;
+
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+        public bool IsUserAlreadyExist (int id)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                bool exists = db.Sellers.Any(t => t.Id == id);
+
+                if (exists)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
         public List<string> ReturnUsersNameList()
         {
             using (var db = new InvoiceMakerDBDataContext())

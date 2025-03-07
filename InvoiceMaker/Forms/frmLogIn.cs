@@ -39,8 +39,15 @@ namespace InvoiceMaker
 
         private void btnLogInEdit_Click(object sender, EventArgs e)
         {
-            frmUser newUser = new frmUser();
-            newUser.ShowDialog();
+            if (lbLogInUsers.SelectedItem != null)
+            {
+                int selectedId = (int)lbLogInUsers.SelectedIndex + 1;
+                Seller sellerToEdit = dataRepository.ReturnSelectedUser(selectedId);
+                frmUser newUser = new frmUser(sellerToEdit); 
+                newUser.ShowDialog();
+
+
+            }
         }
 
         private void LoadUsers()
