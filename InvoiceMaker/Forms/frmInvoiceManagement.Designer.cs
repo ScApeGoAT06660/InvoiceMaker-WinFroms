@@ -125,6 +125,7 @@
             this.btnManageDelete.TabIndex = 2;
             this.btnManageDelete.Text = "Usuń";
             this.btnManageDelete.UseVisualStyleBackColor = true;
+            this.btnManageDelete.Click += new System.EventHandler(this.btnManageDelete_Click);
             // 
             // btnManageEdit
             // 

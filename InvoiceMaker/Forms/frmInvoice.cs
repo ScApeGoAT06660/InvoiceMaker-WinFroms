@@ -65,7 +65,7 @@ namespace InvoiceMaker
 
         private void LoadSelectedInvoice(Invoice invoiceToLoad)
         {
-            Buyer buyer = dataRepository.ReturnBuyerFromTheInvoice(invoiceToLoad.BuyerId);
+            Buyer buyer = dataRepository.ReturnBuyerFromExistingInvoice(invoiceToLoad.BuyerId);
 
             txtInvoiceNo.Text = invoiceToLoad.Number;
             dtpIssueDate.Value = invoiceToLoad.IssueDate;

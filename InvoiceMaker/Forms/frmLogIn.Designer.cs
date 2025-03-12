@@ -84,6 +84,7 @@
             this.btnLogInDelete.TabIndex = 4;
             this.btnLogInDelete.Text = "Usuń";
             this.btnLogInDelete.UseVisualStyleBackColor = true;
+            this.btnLogInDelete.Click += new System.EventHandler(this.btnLogInDelete_Click);
             // 
             // btnLogInChoose
             // 

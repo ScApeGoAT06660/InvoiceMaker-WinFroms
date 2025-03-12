@@ -77,5 +77,15 @@ namespace InvoiceMaker
                 this.Close();
             }
         }
+
+        private void btnLogInDelete_Click(object sender, EventArgs e)
+        {
+            if (lbLogInUsers.SelectedItem != null)
+            {
+                int selectedId = (int)lbLogInUsers.SelectedIndex + 1;
+                dataRepository.DeleteSelectedSeller(selectedId);
+                LoadUsers();
+            }
+        }
     }
 }

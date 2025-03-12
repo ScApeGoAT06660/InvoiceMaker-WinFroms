@@ -125,6 +125,30 @@ namespace InvoiceMaker.Services
             }
         }
 
+        public void DeleteSelectedSeller(int id)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var sellerToRemove = db.Sellers.FirstOrDefault(i => i.Id == id);
+
+                if (sellerToRemove != null)
+                {
+                    var invoicesToRemove = db.Invoices.Where(inv => inv.SellerId == sellerToRemove.Id).ToList();
+                    db.Invoices.DeleteAllOnSubmit(invoicesToRemove);
+
+                    var traderToRemove = db.Traders.FirstOrDefault(t => t.Id == sellerToRemove.TraderID);
+
+                    db.Sellers.DeleteOnSubmit(sellerToRemove);
+
+                    if (traderToRemove != null)
+                    {
+                        db.Traders.DeleteOnSubmit(traderToRemove);
+                    }
+
+                    db.SubmitChanges();
+                }
+            }
+        }
         public bool CheckIfVATIDExist(string nipToCheck)
         {
             using (var db = new InvoiceMakerDBDataContext())
@@ -407,6 +431,13 @@ namespace InvoiceMaker.Services
             }
         }
 
+        public void DeleteSelectedBuyer(int id)
+        {
+
+        }
+
+        //INVOICES
+
         public void SaveNewInvoice(Invoice invoice)
         {
             using (var db = new InvoiceMakerDBDataContext())
@@ -522,6 +553,26 @@ namespace InvoiceMaker.Services
                 }
             }
         }
+
+        public void DeleteSelectedInvoice(int id)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var invoiceToRemove = db.Invoices.FirstOrDefault(i => i.Id == id);
+
+                if (invoiceToRemove != null)
+                {
+                    var itemsToRemove = db.Items.Where(it => it.InvoiceId == invoiceToRemove.Id).ToList();
+
+                    db.Items.DeleteAllOnSubmit(itemsToRemove);
+                    db.Invoices.DeleteOnSubmit(invoiceToRemove);
+
+                    db.SubmitChanges();
+                }
+            }
+        }
+
+
     }
 }
 

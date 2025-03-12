@@ -57,5 +57,20 @@ namespace InvoiceMaker
                 MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }  
         }
+
+        private void btnManageDelete_Click(object sender, EventArgs e)
+        {
+            if (dgwInvoices.CurrentRow != null)
+            {
+                int selectedId = Convert.ToInt32(dgwInvoices.CurrentRow.Cells["Id"].Value);
+                dataRepository.DeleteSelectedInvoice(selectedId);
+                LoadInvoices();
+
+            }
+            else
+            {
+                MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
