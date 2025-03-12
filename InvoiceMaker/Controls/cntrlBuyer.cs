@@ -24,6 +24,7 @@ namespace InvoiceMaker.Controls
     {
         MRiFController mrifController;
         DataRepository dataRepository;
+        frmEditBuyer _frmEditBuyer;
         public frmInvoice invoice;
         
         public cntrlBuyer()
@@ -40,6 +41,19 @@ namespace InvoiceMaker.Controls
 
             mrifController = new MRiFController();
             dataRepository = new DataRepository();
+        }
+
+        public cntrlBuyer(frmEditBuyer frmEditBuyer)
+        {
+            InitializeComponent();
+
+            _frmEditBuyer = frmEditBuyer;
+            dataRepository = new DataRepository();
+
+            rbBusinessType.Visible = false;
+            rbPrivatePersonType.Visible = false;
+            pbTraderListButton.Visible = false;
+            btnGUS.Visible = false;
         }
 
         private void rbPrivatePersonType_CheckedChanged(object sender, EventArgs e)
@@ -174,6 +188,18 @@ namespace InvoiceMaker.Controls
             txtStreetAndNo.Text = buyer.StreetAndNo;
             txtPostcode.Text = buyer.Postcode;
             txtCity.Text = buyer.City;
+        }
+
+        public Buyer ReturnBuyer()
+        {
+            return new Buyer
+            {
+                Name = txtBuyerName.Text,
+                VATID = txtVATID.Text,
+                StreetAndNo = txtStreetAndNo.Text,
+                Postcode = txtPostcode.Text,
+                City = txtCity.Text
+            };
         }
 
         public string ReturnBuyerType()

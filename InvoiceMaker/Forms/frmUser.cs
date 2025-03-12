@@ -17,16 +17,18 @@ namespace InvoiceMaker.Forms
     public partial class frmUser : Form
     {
         DataRepository dataRepository;
+        int _sellerToEditID;
         public frmUser()
         {
             InitializeComponent();
         }
 
-        public frmUser(Seller seller)
+        public frmUser(Seller seller, int sellerToEditID)
         {
             InitializeComponent();
             dataRepository = new DataRepository();
             CompleteTheTextFields(seller);
+            _sellerToEditID = sellerToEditID;
         }
 
         private void btnSellerSave_Click(object sender, EventArgs e)
@@ -50,7 +52,7 @@ namespace InvoiceMaker.Forms
         private void btnSaveEdit_Click(object sender, EventArgs e)
         {
             Seller sellerToEdit = cntrlSeller.ReturnSeller();
-            dataRepository.SaveEditedUser(sellerToEdit);
+            dataRepository.SaveEditedUser(sellerToEdit, _sellerToEditID);
             this.Close();
         }
     }

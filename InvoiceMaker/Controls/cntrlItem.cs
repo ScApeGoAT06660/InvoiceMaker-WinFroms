@@ -63,6 +63,17 @@ namespace InvoiceMaker.Controls
             return item;
         }
 
+        public void LoadItem(Item item)
+        {
+            txtID.Text = item.Position;
+            txtItemName.Text = item.Name;
+            txtQuantity.Text = item.Quantity.ToString();
+            txtUnit.Text = item.Unit;
+            txtNetto.Text = item.Netto.ToString("0.00");
+            cbVAT.Text = item.VAT;
+            txtBrutto.Text = item.Brutto.ToString("0.00");
+        }
+
         private void cbVAT_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!decimal.TryParse(txtNetto.Text, out decimal netto))

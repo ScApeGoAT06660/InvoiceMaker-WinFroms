@@ -43,7 +43,7 @@ namespace InvoiceMaker
             {
                 int selectedId = (int)lbLogInUsers.SelectedIndex + 1;
                 Seller sellerToEdit = dataRepository.ReturnSelectedUser(selectedId);
-                frmUser newUser = new frmUser(sellerToEdit); 
+                frmUser newUser = new frmUser(sellerToEdit, selectedId); 
                 newUser.ShowDialog();
 
 

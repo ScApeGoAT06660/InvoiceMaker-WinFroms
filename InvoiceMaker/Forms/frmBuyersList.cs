@@ -67,6 +67,20 @@ namespace InvoiceMaker.Forms
             }
         }
 
+        private void btnBuyersEdit_Click(object sender, EventArgs e)
+        {
+            if (dgwBuyersList.CurrentRow != null)
+            {
+                int selectedId = Convert.ToInt32(dgwBuyersList.CurrentRow.Cells["Id"].Value);
+                Buyer selectedBuyer = dataRepository.ReturnSelectedBuyer(selectedId);
 
+                frmEditBuyer frmEditBuyer = new frmEditBuyer(this, selectedBuyer);
+                frmEditBuyer.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

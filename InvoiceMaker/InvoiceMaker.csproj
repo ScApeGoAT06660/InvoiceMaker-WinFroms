@@ -368,6 +368,12 @@
     <Compile Include="Forms\frmBuyersList.Designer.cs">
       <DependentUpon>frmBuyersList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmEditBuyer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditBuyer.Designer.cs">
+      <DependentUpon>frmEditBuyer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,6 +418,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmBuyersList.resx">
       <DependentUpon>frmBuyersList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditBuyer.resx">
+      <DependentUpon>frmEditBuyer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>

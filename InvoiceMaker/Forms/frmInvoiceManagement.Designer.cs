@@ -136,6 +136,7 @@
             this.btnManageEdit.TabIndex = 1;
             this.btnManageEdit.Text = "Edytuj";
             this.btnManageEdit.UseVisualStyleBackColor = true;
+            this.btnManageEdit.Click += new System.EventHandler(this.btnManageEdit_Click);
             // 
             // btnManageAdd
             // 

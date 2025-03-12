@@ -29,7 +29,7 @@ namespace InvoiceMaker
             }
         }
 
-        private void LoadInvoices()
+        public void LoadInvoices()
         {
             List<Invoice> invoices = dataRepository.ReturnAllInvoicesForUser(GlobalState.SelectedSeller.Id);
             dgwInvoices.DataSource = invoices;
@@ -39,6 +39,23 @@ namespace InvoiceMaker
         {
             frmInvoice newInvoice = new frmInvoice();
             newInvoice.ShowDialog();
+        }
+
+        private void btnManageEdit_Click(object sender, EventArgs e)
+        {
+            if (dgwInvoices.CurrentRow != null)
+            {
+                int selectedId = Convert.ToInt32(dgwInvoices.CurrentRow.Cells["Id"].Value);
+                Invoice invoice = dataRepository.ReturnSelectedInvoice(selectedId);
+
+                frmInvoice newInvoice = new frmInvoice(invoice, this);
+                newInvoice.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }  
         }
     }
 }

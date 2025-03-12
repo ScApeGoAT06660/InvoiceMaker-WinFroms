@@ -23,6 +23,8 @@ namespace InvoiceMaker
 
         int chosenSellerId;
         int chosenBuyerId;
+        Invoice _invoiceToEdit;
+        frmInvoiceManagement _frmInvoiceManagement;
 
         public frmInvoice()
         {
@@ -35,11 +37,58 @@ namespace InvoiceMaker
             cntrlBuyer.invoice = this;
         }
 
+        public frmInvoice(Invoice invoiceToEdit, frmInvoiceManagement frmInvoiceManagement)
+        {
+            InitializeComponent();
+            mrifController = new MRiFController();
+            chosenSellerId = GlobalState.SelectedSeller.Id;
+
+            dataRepository = new DataRepository();
+
+            cntrlSeller.SetUser(GlobalState.SelectedSeller);
+            cntrlBuyer.invoice = this;
+
+            btnEditInvoice.Visible = true;
+
+            LoadSelectedInvoice(invoiceToEdit);
+            _invoiceToEdit = invoiceToEdit;
+            _frmInvoiceManagement = frmInvoiceManagement;
+        }
+
         private void frmInvoice_Resize(object sender, EventArgs e)
         {
             if (this.WindowState == FormWindowState.Maximized)
             {
                 flpMainContainer.Size = new System.Drawing.Size(887, 1100);
+            }
+        }
+
+        private void LoadSelectedInvoice(Invoice invoiceToLoad)
+        {
+            Buyer buyer = dataRepository.ReturnBuyerFromTheInvoice(invoiceToLoad.BuyerId);
+
+            txtInvoiceNo.Text = invoiceToLoad.Number;
+            dtpIssueDate.Value = invoiceToLoad.IssueDate;
+            dtpSaleDate.Value = invoiceToLoad.SaleDate;
+            txtPlace.Text = invoiceToLoad.Place;
+            cntrlBuyer.DisplayBuyer(buyer);
+            LoadItems(invoiceToLoad.Items);
+            cbPaymentType.Text = invoiceToLoad.PaymentType;
+            cbPaymentDeadline.Text = invoiceToLoad.PaymentDeadline;
+            txtSellerSignature.Text = invoiceToLoad.SellerSignature;
+            txtBuyerSignature.Text = invoiceToLoad.BuyerSignature;
+            txtComment.Text = invoiceToLoad.Notes;
+        }
+
+        private void LoadItems(List<Item> items)
+        {
+            foreach (Item position in items) 
+            {
+                cntrlItem item = new cntrlItem(flpItems, this);
+                item.LoadItem(position);
+                flpItems.Controls.Add(item);
+
+                item.SetID(flpItems.Controls.Count.ToString());
             }
         }
 
@@ -66,8 +115,8 @@ namespace InvoiceMaker
             Invoice newInvoice = new Invoice
             {
                 Number = txtInvoiceNo.Text,
-                IssueDate = DateTime.Now,
-                SaleDate = DateTime.Now,
+                IssueDate = dtpIssueDate.Value,
+                SaleDate = dtpSaleDate.Value,
                 Place = txtPlace.Text,
                 SellerId = chosenSellerId,
                 BuyerId = chosenBuyerId,
@@ -82,16 +131,34 @@ namespace InvoiceMaker
 
             dataRepository.SaveNewInvoice(newInvoice);
             this.Close();
+        }
 
+        public Invoice ReturnInvoice()
+        {
+            Invoice editedInvoice = new Invoice
+            {
+                Number = txtInvoiceNo.Text,
+                IssueDate = dtpIssueDate.Value,
+                SaleDate = dtpSaleDate.Value,
+                Place = txtPlace.Text,
+                SellerId = chosenSellerId,
+                BuyerId = chosenBuyerId,
+                BuyerType = cntrlBuyer.ReturnBuyerType(),
+                Items = ReturnItemList(),
+                PaymentType = cbPaymentType.Text,
+                PaymentDeadline = cbPaymentDeadline.Text,
+                SellerSignature = txtSellerSignature.Text,
+                BuyerSignature = txtBuyerSignature.Text,
+                Notes = txtComment.Text,
+            };
+
+            return editedInvoice;
         }
 
         public void ShowChosenBuyer(Buyer buyer)
         {
             GlobalState.SelectedBuyer = buyer;
             chosenBuyerId = buyer.Id;
-
-            MessageBox.Show($"Wybrano kupującego: {buyer.Name}, ID: {buyer.Id}");
-            MessageBox.Show($"chosenBuyerId teraz: {chosenBuyerId}");
 
             cntrlBuyer.DisplayBuyer(buyer);
         }
@@ -108,8 +175,6 @@ namespace InvoiceMaker
 
             return items;
         }
-
-
 
         public void SetSummary()
         {
@@ -160,6 +225,15 @@ namespace InvoiceMaker
             txtBruttoSummary.Text = summary[2].ToString("0.00");
         }
 
+        private void btnEditInvoice_Click(object sender, EventArgs e)
+        {
+            Invoice editedInvoice = ReturnInvoice();
+            editedInvoice.Id = _invoiceToEdit.Id;
+
+            dataRepository.SaveEditedInvoice(editedInvoice);
+            _frmInvoiceManagement.LoadInvoices();
+            this.Close();
+        }
     }
 
 }
