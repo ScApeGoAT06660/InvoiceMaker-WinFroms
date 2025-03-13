@@ -46,12 +46,10 @@ namespace InvoiceMaker.Services
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
-                var sellerId = db.Sellers.FirstOrDefault(s => s.Id == sellerToEditID);
-
                 var sellerToEdit = db.Traders
-                    .FirstOrDefault(s => s.Id == sellerId.TraderID);
+                    .FirstOrDefault(s => s.Id == sellerToEditID);
 
-                var sellerInfo = db.Sellers.FirstOrDefault(s => s.Id == sellerId.Id);
+                var sellerInfo = db.Sellers.FirstOrDefault(s => s.TraderID == sellerToEdit.Id);
 
                 if (sellerInfo != null) 
                 {
@@ -67,45 +65,60 @@ namespace InvoiceMaker.Services
 
                     db.SubmitChanges();
                 }
-            }
+            }      
         }
 
-        public bool IsUserAlreadyExist (int id)
+
+        public List<Seller> ReturnUsersList()
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
-                bool exists = db.Sellers.Any(t => t.Id == id);
+                List<Seller> sellersList = new List<Seller>();
 
-                if (exists)
-                    return true;
-                else
-                    return false;
-            }
-        }
-
-        public List<string> ReturnUsersNameList()
-        {
-            using (var db = new InvoiceMakerDBDataContext())
-            {
                 var sellers = db.Traders
-                    .Where(v => v.TraderType == TraderTypes.Seller.ToString())
-                    .Select(v => v.Name)
-                    .ToList();
+                                .Where(v => v.TraderType == TraderTypes.Seller.ToString())
+                                .ToList();
 
-                return sellers;
+                var sellersID = db.Sellers.ToList();
+
+
+                foreach (var seller in sellers)
+                {
+                    Seller sellerItem = new Seller
+                    {
+                        Id = seller.Id,
+                        Name = seller.Name,
+                        VATID = seller.VATID,
+                        StreetAndNo = seller.StreetAndNo,
+                        Postcode = seller.Postcode,
+                        City = seller.City
+                    };
+
+                    sellersList.Add(sellerItem);
+                }
+
+                foreach (var seller in sellers)
+                {
+                    seller.Id += 1;
+                }
+
+                return sellersList;
             }
+
         }
 
         public Seller ReturnSelectedUser(int id)
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
-                var sellerID = db.Sellers.FirstOrDefault(s => s.Id == id);
 
                 var traderInfo = db.Traders
-                    .FirstOrDefault(s => s.Id == sellerID.TraderID);
+                    .FirstOrDefault(s => s.Id == id);
 
-                var sellerInfo = db.Sellers.FirstOrDefault(s => s.Id == sellerID.Id);
+
+                var sellerInfo = db.Sellers
+                    .Where(t => t.TraderID == traderInfo.Id)
+                    .FirstOrDefault();
 
 
                 Seller seller = new Seller
@@ -129,26 +142,28 @@ namespace InvoiceMaker.Services
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
-                var sellerToRemove = db.Sellers.FirstOrDefault(i => i.Id == id);
+                var sellerToRemove = db.Sellers.FirstOrDefault(i => i.TraderID == id);
 
-                if (sellerToRemove != null)
+                var invoicesToRemove = db.Invoices.Where(inv => inv.SellerId == sellerToRemove.Id).ToList();
+
+                if (invoicesToRemove.Any())
                 {
-                    var invoicesToRemove = db.Invoices.Where(inv => inv.SellerId == sellerToRemove.Id).ToList();
                     db.Invoices.DeleteAllOnSubmit(invoicesToRemove);
-
-                    var traderToRemove = db.Traders.FirstOrDefault(t => t.Id == sellerToRemove.TraderID);
-
-                    db.Sellers.DeleteOnSubmit(sellerToRemove);
-
-                    if (traderToRemove != null)
-                    {
-                        db.Traders.DeleteOnSubmit(traderToRemove);
-                    }
-
-                    db.SubmitChanges();
                 }
+
+                var traderToRemove = db.Traders.FirstOrDefault(t => t.Id == sellerToRemove.TraderID);
+
+                db.Sellers.DeleteOnSubmit(sellerToRemove);
+
+                if (traderToRemove != null)
+                {
+                    db.Traders.DeleteOnSubmit(traderToRemove);
+                }
+
+                db.SubmitChanges();
             }
         }
+
         public bool CheckIfVATIDExist(string nipToCheck)
         {
             using (var db = new InvoiceMakerDBDataContext())
@@ -158,6 +173,19 @@ namespace InvoiceMaker.Services
                 if (exists)
                     return true;
                 else
+                    return false;
+            }
+        }
+
+        public bool CheckIfIsDeleted(string nipToCheck)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var buyer = db.Traders.FirstOrDefault(v => v.VATID == nipToCheck);
+
+                if(buyer.IsDeleted != null)
+                    return true;
+                else 
                     return false;
             }
         }
@@ -219,9 +247,12 @@ namespace InvoiceMaker.Services
                 List<Buyer> buyerList = new List<Buyer>();
 
                 var buyers = db.Traders
-                                .Where(v => v.TraderType == TraderTypes.Buyer.ToString())
+                                .Where(v => v.TraderType == TraderTypes.Buyer.ToString() && v.IsDeleted == null)
                                 .ToList();
-                var buyersID = db.Buyers.ToList();
+
+                var buyersID = db.Buyers
+                    .Where(v => v.IsDeleted == null)
+                    .ToList();
 
 
                 foreach (var buyer in buyers)
@@ -433,6 +464,42 @@ namespace InvoiceMaker.Services
 
         public void DeleteSelectedBuyer(int id)
         {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var buyerToRemove = db.Traders.FirstOrDefault(b => b.Id == id);
+
+                if (buyerToRemove != null)
+                {
+                    buyerToRemove.IsDeleted = true;
+                    db.SubmitChanges();
+                }
+
+                bool hasInvoices = db.Invoices.Any(inv => inv.BuyerId == id || inv.SellerId == id);
+
+                if (!hasInvoices)
+                {
+                    var traderToRemove = db.Traders.FirstOrDefault(t => t.Id == id);
+
+                    if (traderToRemove != null)
+                    {
+                        db.Traders.DeleteOnSubmit(traderToRemove);
+                        db.SubmitChanges();
+                    }
+                }
+            }
+        }
+
+        public void RestoreDeletedBuyer()
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var buyer = db.Traders.FirstOrDefault(v => v.VATID == nipToCheck);
+
+                if (buyer.IsDeleted != null)
+                    return true;
+                else
+                    return false;
+            }
 
         }
 

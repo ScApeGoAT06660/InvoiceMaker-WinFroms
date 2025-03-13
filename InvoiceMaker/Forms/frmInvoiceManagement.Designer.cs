@@ -32,16 +32,21 @@
             this.pnlRightPanel = new System.Windows.Forms.Panel();
             this.dgwInvoices = new System.Windows.Forms.DataGridView();
             this.pnlLeftPanel = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.gbOtherOptions = new System.Windows.Forms.GroupBox();
             this.gbManageCRUD = new System.Windows.Forms.GroupBox();
             this.btnManageDelete = new System.Windows.Forms.Button();
             this.btnManageEdit = new System.Windows.Forms.Button();
             this.btnManageAdd = new System.Windows.Forms.Button();
+            this.btnManageBuyers = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.pnlMain.SuspendLayout();
             this.pnlRightPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwInvoices)).BeginInit();
             this.pnlLeftPanel.SuspendLayout();
+            this.gbOtherOptions.SuspendLayout();
             this.gbManageCRUD.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -79,7 +84,8 @@
             // 
             // pnlLeftPanel
             // 
-            this.pnlLeftPanel.Controls.Add(this.groupBox2);
+            this.pnlLeftPanel.Controls.Add(this.groupBox1);
+            this.pnlLeftPanel.Controls.Add(this.gbOtherOptions);
             this.pnlLeftPanel.Controls.Add(this.gbManageCRUD);
             this.pnlLeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlLeftPanel.Location = new System.Drawing.Point(0, 0);
@@ -88,17 +94,18 @@
             this.pnlLeftPanel.Size = new System.Drawing.Size(150, 546);
             this.pnlLeftPanel.TabIndex = 0;
             // 
-            // groupBox2
+            // gbOtherOptions
             // 
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(0, 136);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox2.Size = new System.Drawing.Size(150, 206);
-            this.groupBox2.TabIndex = 3;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.gbOtherOptions.Controls.Add(this.btnManageBuyers);
+            this.gbOtherOptions.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbOtherOptions.Location = new System.Drawing.Point(0, 136);
+            this.gbOtherOptions.Margin = new System.Windows.Forms.Padding(2);
+            this.gbOtherOptions.Name = "gbOtherOptions";
+            this.gbOtherOptions.Padding = new System.Windows.Forms.Padding(2);
+            this.gbOtherOptions.Size = new System.Drawing.Size(150, 70);
+            this.gbOtherOptions.TabIndex = 3;
+            this.gbOtherOptions.TabStop = false;
+            this.gbOtherOptions.Text = "Inne opcje";
             // 
             // gbManageCRUD
             // 
@@ -151,6 +158,42 @@
             this.btnManageAdd.UseVisualStyleBackColor = true;
             this.btnManageAdd.Click += new System.EventHandler(this.btnManageAdd_Click);
             // 
+            // btnManageBuyers
+            // 
+            this.btnManageBuyers.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnManageBuyers.Location = new System.Drawing.Point(20, 27);
+            this.btnManageBuyers.Margin = new System.Windows.Forms.Padding(2);
+            this.btnManageBuyers.Name = "btnManageBuyers";
+            this.btnManageBuyers.Size = new System.Drawing.Size(110, 30);
+            this.btnManageBuyers.TabIndex = 3;
+            this.btnManageBuyers.Text = "Kontrahenci";
+            this.btnManageBuyers.UseVisualStyleBackColor = true;
+            this.btnManageBuyers.Click += new System.EventHandler(this.btnManageBuyers_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 206);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Size = new System.Drawing.Size(150, 70);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Inne opcje";
+            // 
+            // button1
+            // 
+            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.button1.Location = new System.Drawing.Point(20, 27);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 30);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Kontrahenci";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // frmInvoiceManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -164,7 +207,9 @@
             this.pnlRightPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgwInvoices)).EndInit();
             this.pnlLeftPanel.ResumeLayout(false);
+            this.gbOtherOptions.ResumeLayout(false);
             this.gbManageCRUD.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -175,11 +220,14 @@
         private System.Windows.Forms.Panel pnlRightPanel;
         private System.Windows.Forms.DataGridView dgwInvoices;
         private System.Windows.Forms.Panel pnlLeftPanel;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox gbOtherOptions;
         private System.Windows.Forms.GroupBox gbManageCRUD;
         private System.Windows.Forms.Button btnManageDelete;
         private System.Windows.Forms.Button btnManageEdit;
         private System.Windows.Forms.Button btnManageAdd;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnManageBuyers;
     }
 }
 

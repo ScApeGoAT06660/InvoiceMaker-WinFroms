@@ -1,4 +1,5 @@
 ﻿using InvoiceMaker.Domains;
+using InvoiceMaker.Forms;
 using InvoiceMaker.Services;
 using System;
 using System.Collections.Generic;
@@ -71,6 +72,12 @@ namespace InvoiceMaker
             {
                 MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnManageBuyers_Click(object sender, EventArgs e)
+        {
+            frmBuyersList list = new frmBuyersList();
+            list.ShowDialog();  
         }
     }
 }

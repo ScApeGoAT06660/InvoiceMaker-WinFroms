@@ -28,23 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbLogInUsers = new System.Windows.Forms.ListBox();
             this.lblLogInUsers = new System.Windows.Forms.Label();
             this.btnLogInAdd = new System.Windows.Forms.Button();
             this.btnLogInEdit = new System.Windows.Forms.Button();
             this.btnLogInDelete = new System.Windows.Forms.Button();
             this.btnLogInChoose = new System.Windows.Forms.Button();
+            this.dgwLogInUsers = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dgwLogInUsers)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lbLogInUsers
-            // 
-            this.lbLogInUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.lbLogInUsers.FormattingEnabled = true;
-            this.lbLogInUsers.ItemHeight = 15;
-            this.lbLogInUsers.Location = new System.Drawing.Point(12, 36);
-            this.lbLogInUsers.Name = "lbLogInUsers";
-            this.lbLogInUsers.Size = new System.Drawing.Size(234, 214);
-            this.lbLogInUsers.TabIndex = 0;
             // 
             // lblLogInUsers
             // 
@@ -58,7 +49,7 @@
             // 
             // btnLogInAdd
             // 
-            this.btnLogInAdd.Location = new System.Drawing.Point(269, 36);
+            this.btnLogInAdd.Location = new System.Drawing.Point(338, 30);
             this.btnLogInAdd.Name = "btnLogInAdd";
             this.btnLogInAdd.Size = new System.Drawing.Size(75, 23);
             this.btnLogInAdd.TabIndex = 2;
@@ -68,7 +59,7 @@
             // 
             // btnLogInEdit
             // 
-            this.btnLogInEdit.Location = new System.Drawing.Point(269, 66);
+            this.btnLogInEdit.Location = new System.Drawing.Point(338, 60);
             this.btnLogInEdit.Name = "btnLogInEdit";
             this.btnLogInEdit.Size = new System.Drawing.Size(75, 23);
             this.btnLogInEdit.TabIndex = 3;
@@ -78,7 +69,7 @@
             // 
             // btnLogInDelete
             // 
-            this.btnLogInDelete.Location = new System.Drawing.Point(269, 96);
+            this.btnLogInDelete.Location = new System.Drawing.Point(338, 90);
             this.btnLogInDelete.Name = "btnLogInDelete";
             this.btnLogInDelete.Size = new System.Drawing.Size(75, 23);
             this.btnLogInDelete.TabIndex = 4;
@@ -97,31 +88,40 @@
             this.btnLogInChoose.UseVisualStyleBackColor = true;
             this.btnLogInChoose.Click += new System.EventHandler(this.btnLogInChoose_Click);
             // 
+            // dgwLogInUsers
+            // 
+            this.dgwLogInUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwLogInUsers.Location = new System.Drawing.Point(12, 32);
+            this.dgwLogInUsers.Name = "dgwLogInUsers";
+            this.dgwLogInUsers.RowHeadersWidth = 45;
+            this.dgwLogInUsers.Size = new System.Drawing.Size(320, 214);
+            this.dgwLogInUsers.TabIndex = 6;
+            // 
             // frmLogIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 298);
+            this.ClientSize = new System.Drawing.Size(423, 294);
+            this.Controls.Add(this.dgwLogInUsers);
             this.Controls.Add(this.btnLogInChoose);
             this.Controls.Add(this.btnLogInDelete);
             this.Controls.Add(this.btnLogInEdit);
             this.Controls.Add(this.btnLogInAdd);
             this.Controls.Add(this.lblLogInUsers);
-            this.Controls.Add(this.lbLogInUsers);
             this.Name = "frmLogIn";
             this.Text = "frmLogIn";
+            ((System.ComponentModel.ISupportInitialize)(this.dgwLogInUsers)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox lbLogInUsers;
         private System.Windows.Forms.Label lblLogInUsers;
         private System.Windows.Forms.Button btnLogInAdd;
         private System.Windows.Forms.Button btnLogInEdit;
         private System.Windows.Forms.Button btnLogInDelete;
         private System.Windows.Forms.Button btnLogInChoose;
+        private System.Windows.Forms.DataGridView dgwLogInUsers;
     }
 }

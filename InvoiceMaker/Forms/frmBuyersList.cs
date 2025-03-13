@@ -27,6 +27,14 @@ namespace InvoiceMaker.Forms
             LoadTradersData();
         }
 
+        public frmBuyersList()
+        {
+            InitializeComponent();
+            dataRepository = new DataRepository();
+
+            LoadTradersData();
+        }
+
         public void LoadTradersData()
         {
             List<Buyer> buyers = dataRepository.ReturnAllBuyers();
@@ -81,6 +89,22 @@ namespace InvoiceMaker.Forms
             {
                 MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnBuyersDelete_Click(object sender, EventArgs e)
+        {
+            if (dgwBuyersList.CurrentRow != null)
+            {
+                int selectedId = Convert.ToInt32(dgwBuyersList.CurrentRow.Cells["Id"].Value);
+                dataRepository.DeleteSelectedBuyer(selectedId);
+
+                LoadTradersData();
+            }
+            else
+            {
+                MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
         }
     }
 }

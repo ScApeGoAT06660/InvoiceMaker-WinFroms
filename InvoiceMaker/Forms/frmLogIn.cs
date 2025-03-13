@@ -26,7 +26,7 @@ namespace InvoiceMaker
             dataRepository = new DataRepository();
             this.invoiceManagement = invoiceManagement;
 
-            LoadUsers();
+            LoadTradersData();
         }
 
         private void btnLogInAdd_Click(object sender, EventArgs e)
@@ -34,36 +34,71 @@ namespace InvoiceMaker
             frmUser newUser = new frmUser();
             newUser.ShowDialog();
 
-            LoadUsers();
+            LoadTradersData();
         }
+
+        public void LoadTradersData()
+        {
+            List<Seller> sellers = dataRepository.ReturnUsersList();
+
+            dgwLogInUsers.Columns.Clear();
+            dgwLogInUsers.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn idColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Id",
+                HeaderText = "ID",
+                Name = "Id",
+                Width = 40
+            };
+
+            DataGridViewTextBoxColumn nameColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = "Nazwa",
+                Name = "Name",
+                Width = 200
+            };
+
+            DataGridViewTextBoxColumn vatColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "VatId",
+                HeaderText = "NIP",
+                Name = "VatId",
+                Width = 80
+            };
+
+            dgwLogInUsers.Columns.Add(idColumn);
+            dgwLogInUsers.Columns.Add(nameColumn);
+            dgwLogInUsers.Columns.Add(vatColumn);
+
+            dgwLogInUsers.DataSource = sellers;
+        }
+
 
         private void btnLogInEdit_Click(object sender, EventArgs e)
         {
-            if (lbLogInUsers.SelectedItem != null)
+
+            if (dgwLogInUsers.CurrentRow != null)
             {
-                int selectedId = (int)lbLogInUsers.SelectedIndex + 1;
+                int selectedId = Convert.ToInt32(dgwLogInUsers.CurrentRow.Cells["Id"].Value);
+
                 Seller sellerToEdit = dataRepository.ReturnSelectedUser(selectedId);
-                frmUser newUser = new frmUser(sellerToEdit, selectedId); 
+
+                frmUser newUser = new frmUser(sellerToEdit, selectedId);
                 newUser.ShowDialog();
-
-
             }
-        }
-
-        private void LoadUsers()
-        {
-            List<string> sellers = dataRepository.ReturnUsersNameList();
-            lbLogInUsers.DataSource = sellers;
         }
 
         private void btnLogInChoose_Click(object sender, EventArgs e)
         {
-            if (lbLogInUsers.SelectedItem != null)
+
+            if (dgwLogInUsers.CurrentRow != null)
             {
-                int selectedId = (int)lbLogInUsers.SelectedIndex + 1;
+                int selectedId = Convert.ToInt32(dgwLogInUsers.CurrentRow.Cells["Id"].Value);
 
                 GlobalState.SelectedSeller = dataRepository.ReturnSelectedUser(selectedId);
-                GlobalState.isSetUp = true; 
+                GlobalState.isSetUp = true;
 
                 invoiceManagement.Show();
                 this.Close();
@@ -72,6 +107,7 @@ namespace InvoiceMaker
             {
                 Seller noSeller = new Seller();
                 GlobalState.SelectedSeller = noSeller;
+                GlobalState.isSetUp = true;
 
                 invoiceManagement.Show();
                 this.Close();
@@ -80,11 +116,11 @@ namespace InvoiceMaker
 
         private void btnLogInDelete_Click(object sender, EventArgs e)
         {
-            if (lbLogInUsers.SelectedItem != null)
+            if (dgwLogInUsers.CurrentRow != null)
             {
-                int selectedId = (int)lbLogInUsers.SelectedIndex + 1;
+                int selectedId = Convert.ToInt32(dgwLogInUsers.CurrentRow.Cells["Id"].Value);
                 dataRepository.DeleteSelectedSeller(selectedId);
-                LoadUsers();
+                LoadTradersData();
             }
         }
     }
