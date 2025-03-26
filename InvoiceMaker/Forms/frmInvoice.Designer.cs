@@ -556,7 +556,7 @@
             this.Controls.Add(this.pnlMainAddInvoice);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmInvoice";
-            this.Text = "InvoiceForm";
+            this.Text = "Faktura";
             this.Resize += new System.EventHandler(this.frmInvoice_Resize);
             this.pnlMainAddInvoice.ResumeLayout(false);
             this.flpMainContainer.ResumeLayout(false);

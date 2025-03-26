@@ -84,6 +84,8 @@ namespace InvoiceMaker
 
                 frmUser newUser = new frmUser(sellerToEdit, selectedId);
                 newUser.ShowDialog();
+
+                LoadTradersData();
             }
             else
             {

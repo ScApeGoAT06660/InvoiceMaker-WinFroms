@@ -101,7 +101,7 @@
             this.Controls.Add(this.btnBuyersSelect);
             this.Controls.Add(this.dgwBuyersList);
             this.Name = "frmBuyersList";
-            this.Text = "frmBuyersList";
+            this.Text = "Lista kontrahentów";
             ((System.ComponentModel.ISupportInitialize)(this.dgwBuyersList)).EndInit();
             this.ResumeLayout(false);
 

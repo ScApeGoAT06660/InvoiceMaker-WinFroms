@@ -109,7 +109,7 @@
             this.Controls.Add(this.btnLogInAdd);
             this.Controls.Add(this.lblLogInUsers);
             this.Name = "frmLogIn";
-            this.Text = "frmLogIn";
+            this.Text = "Zaloguj się";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLogIn_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dgwLogInUsers)).EndInit();
             this.ResumeLayout(false);

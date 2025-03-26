@@ -73,7 +73,7 @@
             this.Controls.Add(this.btnSaveEdit);
             this.Controls.Add(this.btnBuyerCancel);
             this.Name = "frmBuyer";
-            this.Text = "frmEditBuyer";
+            this.Text = "Modyfikuj kontrahenta";
             this.ResumeLayout(false);
 
         }
