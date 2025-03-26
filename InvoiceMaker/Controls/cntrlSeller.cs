@@ -14,18 +14,9 @@ namespace InvoiceMaker.Controls
 {
     public partial class cntrlSeller : UserControl
     {
-        DataRepository dataRepository;
         public cntrlSeller()
         {
             InitializeComponent();
-            dataRepository = new DataRepository();
-        }
-
-        public void SaveUser()
-        {
-            Seller seller = ReturnSeller();
-
-            dataRepository.SaveNewUser(seller);
         }
 
         public void SetUser(Seller seller)
@@ -56,6 +47,5 @@ namespace InvoiceMaker.Controls
 
             return seller;
         }
-
     }
 }

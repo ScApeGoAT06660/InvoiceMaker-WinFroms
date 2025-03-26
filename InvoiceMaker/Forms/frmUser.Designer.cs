@@ -31,12 +31,13 @@
             this.btnSellerSave = new System.Windows.Forms.Button();
             this.btnSellerCancel = new System.Windows.Forms.Button();
             this.btnSaveEdit = new System.Windows.Forms.Button();
+            this.btnChooseLogo = new System.Windows.Forms.Button();
             this.cntrlSeller = new InvoiceMaker.Controls.cntrlSeller();
             this.SuspendLayout();
             // 
             // btnSellerSave
             // 
-            this.btnSellerSave.Location = new System.Drawing.Point(85, 333);
+            this.btnSellerSave.Location = new System.Drawing.Point(48, 333);
             this.btnSellerSave.Name = "btnSellerSave";
             this.btnSellerSave.Size = new System.Drawing.Size(75, 23);
             this.btnSellerSave.TabIndex = 3;
@@ -46,7 +47,7 @@
             // 
             // btnSellerCancel
             // 
-            this.btnSellerCancel.Location = new System.Drawing.Point(166, 333);
+            this.btnSellerCancel.Location = new System.Drawing.Point(129, 333);
             this.btnSellerCancel.Name = "btnSellerCancel";
             this.btnSellerCancel.Size = new System.Drawing.Size(75, 23);
             this.btnSellerCancel.TabIndex = 4;
@@ -56,7 +57,7 @@
             // 
             // btnSaveEdit
             // 
-            this.btnSaveEdit.Location = new System.Drawing.Point(85, 333);
+            this.btnSaveEdit.Location = new System.Drawing.Point(48, 333);
             this.btnSaveEdit.Name = "btnSaveEdit";
             this.btnSaveEdit.Size = new System.Drawing.Size(75, 23);
             this.btnSaveEdit.TabIndex = 5;
@@ -64,6 +65,16 @@
             this.btnSaveEdit.UseVisualStyleBackColor = true;
             this.btnSaveEdit.Visible = false;
             this.btnSaveEdit.Click += new System.EventHandler(this.btnSaveEdit_Click);
+            // 
+            // btnChooseLogo
+            // 
+            this.btnChooseLogo.Location = new System.Drawing.Point(210, 333);
+            this.btnChooseLogo.Name = "btnChooseLogo";
+            this.btnChooseLogo.Size = new System.Drawing.Size(75, 23);
+            this.btnChooseLogo.TabIndex = 6;
+            this.btnChooseLogo.Text = "Logo";
+            this.btnChooseLogo.UseVisualStyleBackColor = true;
+            this.btnChooseLogo.Click += new System.EventHandler(this.btnChooseLogo_Click);
             // 
             // cntrlSeller
             // 
@@ -77,6 +88,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(338, 370);
+            this.Controls.Add(this.btnChooseLogo);
             this.Controls.Add(this.btnSaveEdit);
             this.Controls.Add(this.btnSellerCancel);
             this.Controls.Add(this.btnSellerSave);
@@ -93,5 +105,6 @@
         private System.Windows.Forms.Button btnSellerSave;
         private System.Windows.Forms.Button btnSellerCancel;
         private System.Windows.Forms.Button btnSaveEdit;
+        private System.Windows.Forms.Button btnChooseLogo;
     }
 }

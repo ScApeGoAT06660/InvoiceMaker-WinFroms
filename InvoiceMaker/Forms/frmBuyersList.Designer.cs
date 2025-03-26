@@ -32,6 +32,7 @@
             this.btnBuyersSelect = new System.Windows.Forms.Button();
             this.btnBuyersEdit = new System.Windows.Forms.Button();
             this.btnBuyersDelete = new System.Windows.Forms.Button();
+            this.btnAddBuyer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgwBuyersList)).BeginInit();
             this.SuspendLayout();
             // 
@@ -48,7 +49,7 @@
             // btnBuyersSelect
             // 
             this.btnBuyersSelect.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnBuyersSelect.Location = new System.Drawing.Point(12, 12);
+            this.btnBuyersSelect.Location = new System.Drawing.Point(12, 148);
             this.btnBuyersSelect.Name = "btnBuyersSelect";
             this.btnBuyersSelect.Size = new System.Drawing.Size(75, 23);
             this.btnBuyersSelect.TabIndex = 16;
@@ -78,11 +79,23 @@
             this.btnBuyersDelete.UseVisualStyleBackColor = true;
             this.btnBuyersDelete.Click += new System.EventHandler(this.btnBuyersDelete_Click);
             // 
+            // btnAddBuyer
+            // 
+            this.btnAddBuyer.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnAddBuyer.Location = new System.Drawing.Point(12, 12);
+            this.btnAddBuyer.Name = "btnAddBuyer";
+            this.btnAddBuyer.Size = new System.Drawing.Size(75, 23);
+            this.btnAddBuyer.TabIndex = 19;
+            this.btnAddBuyer.Text = "Dodaj";
+            this.btnAddBuyer.UseVisualStyleBackColor = true;
+            this.btnAddBuyer.Click += new System.EventHandler(this.btnAddBuyer_Click);
+            // 
             // frmBuyersList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 629);
+            this.Controls.Add(this.btnAddBuyer);
             this.Controls.Add(this.btnBuyersDelete);
             this.Controls.Add(this.btnBuyersEdit);
             this.Controls.Add(this.btnBuyersSelect);
@@ -100,5 +113,6 @@
         private System.Windows.Forms.Button btnBuyersSelect;
         private System.Windows.Forms.Button btnBuyersEdit;
         private System.Windows.Forms.Button btnBuyersDelete;
+        private System.Windows.Forms.Button btnAddBuyer;
     }
 }

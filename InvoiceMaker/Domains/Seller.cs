@@ -11,5 +11,6 @@ namespace InvoiceMaker.Domains
         public string BankAccount { get; set; }
         public string Bank { get; set; }
         public string SWIFT { get; set; }
+        public string LogoPath { get; set; }
     }
 }

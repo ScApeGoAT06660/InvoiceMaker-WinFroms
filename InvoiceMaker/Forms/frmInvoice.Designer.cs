@@ -60,6 +60,7 @@
             this.btnAddItem = new System.Windows.Forms.Button();
             this.flpItems = new System.Windows.Forms.FlowLayoutPanel();
             this.gbAddition = new System.Windows.Forms.GroupBox();
+            this.btnEditInvoice = new System.Windows.Forms.Button();
             this.btnDrop = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.txtComment = new System.Windows.Forms.TextBox();
@@ -68,7 +69,6 @@
             this.lblBuyerSignature = new System.Windows.Forms.Label();
             this.txtSellerSignature = new System.Windows.Forms.TextBox();
             this.lblSellerSignature = new System.Windows.Forms.Label();
-            this.btnEditInvoice = new System.Windows.Forms.Button();
             this.pnlMainAddInvoice.SuspendLayout();
             this.flpMainContainer.SuspendLayout();
             this.gbHeadline.SuspendLayout();
@@ -189,6 +189,7 @@
             this.txtInvoiceNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.txtInvoiceNo.Location = new System.Drawing.Point(12, 51);
             this.txtInvoiceNo.Name = "txtInvoiceNo";
+            this.txtInvoiceNo.ReadOnly = true;
             this.txtInvoiceNo.Size = new System.Drawing.Size(262, 24);
             this.txtInvoiceNo.TabIndex = 1;
             // 
@@ -237,7 +238,6 @@
             this.cntrlBuyer.Name = "cntrlBuyer";
             this.cntrlBuyer.Size = new System.Drawing.Size(327, 330);
             this.cntrlBuyer.TabIndex = 0;
-            this.cntrlBuyer.Load += new System.EventHandler(this.cntrlBuyer_Load);
             // 
             // gbSeller
             // 
@@ -459,6 +459,18 @@
             this.gbAddition.TabStop = false;
             this.gbAddition.Text = "Stopka";
             // 
+            // btnEditInvoice
+            // 
+            this.btnEditInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.btnEditInvoice.Location = new System.Drawing.Point(695, 116);
+            this.btnEditInvoice.Name = "btnEditInvoice";
+            this.btnEditInvoice.Size = new System.Drawing.Size(129, 36);
+            this.btnEditInvoice.TabIndex = 10;
+            this.btnEditInvoice.Text = "Modyfikuj";
+            this.btnEditInvoice.UseVisualStyleBackColor = true;
+            this.btnEditInvoice.Visible = false;
+            this.btnEditInvoice.Click += new System.EventHandler(this.btnEditInvoice_Click);
+            // 
             // btnDrop
             // 
             this.btnDrop.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -535,18 +547,6 @@
             this.lblSellerSignature.Size = new System.Drawing.Size(79, 17);
             this.lblSellerSignature.TabIndex = 2;
             this.lblSellerSignature.Text = "Wystawca";
-            // 
-            // btnEditInvoice
-            // 
-            this.btnEditInvoice.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.btnEditInvoice.Location = new System.Drawing.Point(695, 116);
-            this.btnEditInvoice.Name = "btnEditInvoice";
-            this.btnEditInvoice.Size = new System.Drawing.Size(129, 36);
-            this.btnEditInvoice.TabIndex = 10;
-            this.btnEditInvoice.Text = "Modyfikuj";
-            this.btnEditInvoice.UseVisualStyleBackColor = true;
-            this.btnEditInvoice.Visible = false;
-            this.btnEditInvoice.Click += new System.EventHandler(this.btnEditInvoice_Click);
             // 
             // frmInvoice
             // 

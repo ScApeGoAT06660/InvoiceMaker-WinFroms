@@ -10,7 +10,6 @@ namespace InvoiceMaker.Domains
         public DateTime IssueDate { get; set; }
         public DateTime SaleDate { get; set; }
         public string Place { get; set; }
-
         public int SellerId { get; set; } //ReturnSellerId
         public int BuyerId { get; set; } //ReturnBuyerId
         public string BuyerType { get; set; } //ReturnBuyerType

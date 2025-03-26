@@ -120,7 +120,6 @@
             this.txtNetto.Name = "txtNetto";
             this.txtNetto.Size = new System.Drawing.Size(67, 20);
             this.txtNetto.TabIndex = 23;
-            this.txtNetto.TextChanged += new System.EventHandler(this.txtNetto_TextChanged);
             // 
             // lblNetto
             // 

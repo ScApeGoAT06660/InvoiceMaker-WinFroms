@@ -13,10 +13,11 @@ namespace InvoiceMaker.Controls
 {
     public partial class cntrlItem : UserControl
     {
+        public string childCount;
+
         FlowLayoutPanel _flpItems;
         frmInvoice _invoice;
-        public string childCount;
-    
+        
         public cntrlItem(FlowLayoutPanel flpItems, frmInvoice invoice)
         {
             InitializeComponent();
@@ -24,31 +25,55 @@ namespace InvoiceMaker.Controls
             _invoice = invoice;
         }
 
-        private void pbTrashButton_Click(object sender, EventArgs e)
-        {
-            _flpItems.Controls.Remove(this);
-            RefreshIDList();
-            _invoice.RemoveDeletedItemValue(ReturnSummary());
-            this.Dispose();
-        }
-
         public void SetID(string id)
         {
             txtID.Text = id;
         }
 
-        private void RefreshIDList()
-        {
-            List<cntrlItem> itemsList = _flpItems.Controls.OfType<cntrlItem>().ToList();
-
-            for (int i = 0; i < itemsList.Count; i++) 
-            {
-                itemsList[i].txtID.Text = (i + 1).ToString();
-            }
-        }
-
         public Item CreateNewItem()
         {
+            if (string.IsNullOrWhiteSpace(txtItemName.Text))
+            {
+                MessageBox.Show("Nazwa produktu nie może być pusta.", "Błąd walidacji", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtItemName.Focus();
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtUnit.Text))
+            {
+                MessageBox.Show("Jednostka miary nie może być pusta.", "Błąd walidacji", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtUnit.Focus();
+                return null;
+            }
+
+            if (string.IsNullOrWhiteSpace(cbVAT.Text))
+            {
+                MessageBox.Show("Wybierz stawkę VAT.", "Błąd walidacji", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cbVAT.Focus();
+                return null;
+            }
+
+            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0)
+            {
+                MessageBox.Show("Ilość musi być liczbą całkowitą większą od 0.", "Błąd walidacji", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtQuantity.Focus();
+                return null;
+            }
+
+            if (!decimal.TryParse(txtNetto.Text, out decimal netto) || netto <= 0)
+            {
+                MessageBox.Show("Cena netto musi być liczbą większą od 0.", "Błąd walidacji", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNetto.Focus();
+                return null;
+            }
+
+            if (!decimal.TryParse(txtBrutto.Text, out decimal brutto) || brutto <= 0)
+            {
+                MessageBox.Show("Cena brutto musi być liczbą większą od 0.", "Błąd walidacji", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtBrutto.Focus();
+                return null;
+            }
+
             Item item = new Item
             {
                 Position = txtID.Text,
@@ -73,38 +98,6 @@ namespace InvoiceMaker.Controls
             cbVAT.Text = item.VAT;
             txtBrutto.Text = item.Brutto.ToString("0.00");
         }
-
-        private void cbVAT_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (!decimal.TryParse(txtNetto.Text, out decimal netto))
-            {
-                MessageBox.Show("Podaj poprawną wartość netto.");
-                return;
-            }
-
-            if (cbVAT.SelectedItem == null)
-            {
-                MessageBox.Show("Wybierz wartość VAT.");
-                return;
-            }
-
-            string vatText = cbVAT.SelectedItem.ToString().Trim().ToLower(); 
-
-            if (decimal.TryParse(vatText, out decimal vatRate))
-            {
-                decimal brutto = netto * (1 + vatRate / 100);
-                txtBrutto.Text = brutto.ToString("0.00");
-            }
-            else if (vatText == "np" || vatText == "zw")
-            {
-                txtBrutto.Text = netto.ToString("0.00");
-            }
-            else
-            {
-                MessageBox.Show("Niepoprawna wartość VAT. Podaj liczbę, 'np' lub 'zw'.");
-            }
-        }
-
 
         public decimal[] ReturnSummary()
         {
@@ -141,14 +134,58 @@ namespace InvoiceMaker.Controls
             }
         }
 
+        private void pbTrashButton_Click(object sender, EventArgs e)
+        {
+            _flpItems.Controls.Remove(this);
+            RefreshIDList();
+            _invoice.RemoveDeletedItemValue(ReturnSummary());
+            this.Dispose();
+        }
+
+        private void RefreshIDList()
+        {
+            List<cntrlItem> itemsList = _flpItems.Controls.OfType<cntrlItem>().ToList();
+
+            for (int i = 0; i < itemsList.Count; i++) 
+            {
+                itemsList[i].txtID.Text = (i + 1).ToString();
+            }
+        }
+
+        private void cbVAT_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!decimal.TryParse(txtNetto.Text, out decimal netto))
+            {
+                MessageBox.Show("Podaj poprawną wartość netto.");
+                return;
+            }
+
+            if (cbVAT.SelectedItem == null)
+            {
+                MessageBox.Show("Wybierz wartość VAT.");
+                return;
+            }
+
+            string vatText = cbVAT.SelectedItem.ToString().Trim().ToLower(); 
+
+            if (decimal.TryParse(vatText, out decimal vatRate))
+            {
+                decimal brutto = netto * (1 + vatRate / 100);
+                txtBrutto.Text = brutto.ToString("0.00");
+            }
+            else if (vatText == "np" || vatText == "zw")
+            {
+                txtBrutto.Text = netto.ToString("0.00");
+            }
+            else
+            {
+                MessageBox.Show("Niepoprawna wartość VAT. Podaj liczbę, 'np' lub 'zw'.");
+            }
+        }
+
         private void txtBrutto_TextChanged(object sender, EventArgs e)
         {
             _invoice.SetSummary();
-        }
-
-        private void txtNetto_TextChanged(object sender, EventArgs e)
-        {
-            
         }
     }
 }

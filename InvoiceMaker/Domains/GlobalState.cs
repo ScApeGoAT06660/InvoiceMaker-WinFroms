@@ -11,6 +11,7 @@ namespace InvoiceMaker.Domains
         public static Seller SelectedSeller { get; set; }
         public static Buyer SelectedBuyer { get; set; }
         public static bool isSetUp { get; set; }
+        public static string InvoicesFolderPath { get; set; }
     }
 }
 

@@ -5,12 +5,46 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace InvoiceMaker.Services
 {
     public class DataRepository
     {
-        public void SaveNewUser(Seller seller)
+        //TRADER
+        public bool CheckIfVATIDExist(string nipToCheck)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                bool exists = db.Traders.Any(t => t.VATID == nipToCheck);
+
+                if (exists)
+                    return true;
+                else
+                    return false;
+            }
+        }
+
+        public bool CheckIfIsDeleted(string nipToCheck)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var buyer = db.Traders.FirstOrDefault(v => v.VATID == nipToCheck);
+
+                if (buyer != null)
+                {
+                    if (buyer.IsDeleted == true)
+                        return true;
+                    else
+                        return false;
+                }
+
+                return false;
+            }
+        }
+
+        //SELLER
+        public int SaveNewUser(Seller seller)
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
@@ -22,16 +56,16 @@ namespace InvoiceMaker.Services
                     Postcode = seller.Postcode,
                     City = seller.City,
                     TraderType = TraderTypes.Seller.ToString(),
-                 
+
                 };
 
                 db.Traders.InsertOnSubmit(trader);
-                db.SubmitChanges(); 
+                db.SubmitChanges();
 
-                
+
                 var newSeller = new Sellers
                 {
-                    TraderID = trader.Id, 
+                    TraderID = trader.Id,
                     BankAccount = seller.BankAccount,
                     Bank = seller.Bank,
                     SWIFT = seller.SWIFT
@@ -39,6 +73,8 @@ namespace InvoiceMaker.Services
 
                 db.Sellers.InsertOnSubmit(newSeller);
                 db.SubmitChanges();
+
+                return trader.Id;
             }
         }
 
@@ -51,7 +87,7 @@ namespace InvoiceMaker.Services
 
                 var sellerInfo = db.Sellers.FirstOrDefault(s => s.TraderID == sellerToEdit.Id);
 
-                if (sellerInfo != null) 
+                if (sellerInfo != null)
                 {
                     sellerToEdit.Name = editedSeller.Name;
                     sellerToEdit.VATID = editedSeller.VATID;
@@ -65,9 +101,8 @@ namespace InvoiceMaker.Services
 
                     db.SubmitChanges();
                 }
-            }      
+            }
         }
-
 
         public List<Seller> ReturnUsersList()
         {
@@ -80,7 +115,6 @@ namespace InvoiceMaker.Services
                                 .ToList();
 
                 var sellersID = db.Sellers.ToList();
-
 
                 foreach (var seller in sellers)
                 {
@@ -97,29 +131,22 @@ namespace InvoiceMaker.Services
                     sellersList.Add(sellerItem);
                 }
 
-                foreach (var seller in sellers)
-                {
-                    seller.Id += 1;
-                }
-
                 return sellersList;
             }
-
         }
 
         public Seller ReturnSelectedUser(int id)
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
-
                 var traderInfo = db.Traders
                     .FirstOrDefault(s => s.Id == id);
 
+                if (traderInfo == null) return null;
 
                 var sellerInfo = db.Sellers
                     .Where(t => t.TraderID == traderInfo.Id)
                     .FirstOrDefault();
-
 
                 Seller seller = new Seller
                 {
@@ -142,9 +169,20 @@ namespace InvoiceMaker.Services
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
-                var sellerToRemove = db.Sellers.FirstOrDefault(i => i.TraderID == id);
+                var sellerToRemove = db.Sellers.FirstOrDefault(s => s.TraderID == id);
+                if (sellerToRemove == null)
+                {
+                    MessageBox.Show("Sprzedawca nie istnieje.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 var invoicesToRemove = db.Invoices.Where(inv => inv.SellerId == sellerToRemove.Id).ToList();
+
+                foreach (var invoice in invoicesToRemove)
+                {
+                    var itemsToRemove = db.Items.Where(item => item.InvoiceId == invoice.Id).ToList();
+                    db.Items.DeleteAllOnSubmit(itemsToRemove);
+                }
 
                 if (invoicesToRemove.Any())
                 {
@@ -164,32 +202,7 @@ namespace InvoiceMaker.Services
             }
         }
 
-        public bool CheckIfVATIDExist(string nipToCheck)
-        {
-            using (var db = new InvoiceMakerDBDataContext())
-            {
-                bool exists = db.Traders.Any(t => t.VATID == nipToCheck);
-
-                if (exists)
-                    return true;
-                else
-                    return false;
-            }
-        }
-
-        public bool CheckIfIsDeleted(string nipToCheck)
-        {
-            using (var db = new InvoiceMakerDBDataContext())
-            {
-                var buyer = db.Traders.FirstOrDefault(v => v.VATID == nipToCheck);
-
-                if(buyer.IsDeleted != null)
-                    return true;
-                else 
-                    return false;
-            }
-        }
-
+        //BUYER
         public void SaveNewBuyer(Buyer buyer)
         {
             using (var db = new InvoiceMakerDBDataContext())
@@ -201,7 +214,8 @@ namespace InvoiceMaker.Services
                     StreetAndNo = buyer.StreetAndNo,
                     Postcode = buyer.Postcode,
                     City = buyer.City,
-                    TraderType = TraderTypes.Buyer.ToString()
+                    TraderType = TraderTypes.Buyer.ToString(),
+                    IsDeleted = false
                 };
 
                 db.Traders.InsertOnSubmit(trader);
@@ -226,7 +240,6 @@ namespace InvoiceMaker.Services
                 var buyerToEdit = db.Traders
                     .FirstOrDefault(s => s.Id == buyerId.TraderID);
 
-
                 if (buyerToEdit != null)
                 {
                     buyerToEdit.Name = editedBuyer.Name;
@@ -247,16 +260,16 @@ namespace InvoiceMaker.Services
                 List<Buyer> buyerList = new List<Buyer>();
 
                 var buyers = db.Traders
-                                .Where(v => v.TraderType == TraderTypes.Buyer.ToString() && v.IsDeleted == null)
+                                .Where(v => v.TraderType == TraderTypes.Buyer.ToString() && v.IsDeleted == false)
                                 .ToList();
 
                 var buyersID = db.Buyers
-                    .Where(v => v.IsDeleted == null)
+                    .Where(v => v.IsDeleted == false)
                     .ToList();
 
 
                 foreach (var buyer in buyers)
-                { 
+                {
                     Buyer buyerItem = new Buyer
                     {
                         Id = buyer.Id,
@@ -270,119 +283,7 @@ namespace InvoiceMaker.Services
                     buyerList.Add(buyerItem);
                 }
 
-                foreach (var buyer in buyers)
-                {
-                    buyer.Id += 1;
-                }
-
                 return buyerList;
-            }
-        }
-
-        public List<Invoice> ReturnAllInvoicesForUser(int id)
-        {
-            using (var db = new InvoiceMakerDBDataContext())
-            {
-                List<Invoice> invoicesList = new List<Invoice>();
-
-                var invoices = db.Invoices
-                    .Where(s => s.SellerId == id)
-                    .ToList();
-
-                foreach (var item in invoices)
-                {
-                    Invoice invoice = new Invoice
-                    {
-                        Id = item.Id,
-                        Number = item.Number,
-                        IssueDate = item.IssueDate,
-                        SaleDate = item.SaleDate,
-                        Place = item.Place,
-                        SellerId = item.SellerId ?? 0,
-                        BuyerId = item.BuyerId ?? 0,
-                        BuyerType = item.BuyerType,
-                        PaymentType = item.PaymentType,
-                        PaymentDeadline = item.PaymentDeadline,
-                        SellerSignature = item.SellerSignature,
-                        BuyerSignature = item.BuyerSignature,
-                        Notes = item.Notes,
-                    };
-
-                    var items = db.Items.Where(i => i.InvoiceId == item.Id).ToList();
-
-                    List<Item> itemsList = new List<Item>();
-
-                    foreach (var position in items) 
-                    {
-                        Item newItem = new Item 
-                        {
-                            InvoiceId = position.InvoiceId ?? 0,
-                            Name = position.Name,
-                            Quantity = position.Quantity,
-                            Unit = position.Unit,
-                            VAT = position.VAT,
-                            Netto = position.Netto,
-                            Brutto = position.Brutto
-                        };
-
-                    }
-
-                    invoice.Items = itemsList;
-
-                    invoicesList.Add(invoice);
-                }
-
-                return invoicesList;
-            }
-        }
-
-        public Invoice ReturnSelectedInvoice(int id)
-        {
-            using (var db = new InvoiceMakerDBDataContext())
-            {
-                var item = db.Invoices.FirstOrDefault(i => i.Id == id);
-
-                if (item == null)
-                    return null;
-
-                Invoice invoice = new Invoice
-                {
-                    Id = item.Id,
-                    Number = item.Number,
-                    IssueDate = item.IssueDate,
-                    SaleDate = item.SaleDate,
-                    Place = item.Place,
-                    SellerId = item.SellerId ?? 0,
-                    BuyerId = item.BuyerId ?? 0,
-                    BuyerType = item.BuyerType,
-                    PaymentType = item.PaymentType,
-                    PaymentDeadline = item.PaymentDeadline,
-                    SellerSignature = item.SellerSignature,
-                    BuyerSignature = item.BuyerSignature,
-                    Notes = item.Notes
-                };
-
-                var items = db.Items.Where(i => i.InvoiceId == item.Id).ToList();
-
-                List<Item> itemsList = new List<Item>();
-
-                foreach (var position in items)
-                {
-                    itemsList.Add(new Item
-                    {
-                        InvoiceId = position.InvoiceId ?? 0,
-                        Name = position.Name,
-                        Quantity = position.Quantity,
-                        Unit = position.Unit,
-                        VAT = position.VAT,
-                        Netto = position.Netto,
-                        Brutto = position.Brutto
-                    });
-                }
-
-                invoice.Items = itemsList;
-
-                return invoice;
             }
         }
 
@@ -392,6 +293,8 @@ namespace InvoiceMaker.Services
             {
                 var traderInfo = db.Traders
                     .FirstOrDefault(s => s.Id == id);
+
+                if (traderInfo == null) return null;
 
                 var buyerID = db.Buyers
                     .Where(t => t.TraderID == traderInfo.Id)
@@ -435,7 +338,6 @@ namespace InvoiceMaker.Services
                 return buyer;
             }
         }
-
 
         public Buyer ReturnFreshlyAddedBuyer(string vatId)
         {
@@ -489,22 +391,19 @@ namespace InvoiceMaker.Services
             }
         }
 
-        public void RestoreDeletedBuyer()
+        public void RestoreDeletedBuyer(string nipToCheck)
         {
             using (var db = new InvoiceMakerDBDataContext())
             {
                 var buyer = db.Traders.FirstOrDefault(v => v.VATID == nipToCheck);
 
-                if (buyer.IsDeleted != null)
-                    return true;
-                else
-                    return false;
-            }
+                buyer.IsDeleted = false;
 
+                db.SubmitChanges();
+            }
         }
 
-        //INVOICES
-
+        //INVOICE
         public void SaveNewInvoice(Invoice invoice)
         {
             using (var db = new InvoiceMakerDBDataContext())
@@ -563,7 +462,7 @@ namespace InvoiceMaker.Services
                     existingInvoice.SaleDate = editedInvoice.SaleDate;
                     existingInvoice.Place = editedInvoice.Place;
                     existingInvoice.SellerId = editedInvoice.SellerId;
-                    existingInvoice.BuyerId = GlobalState.SelectedBuyer.Id;
+                    existingInvoice.BuyerId = editedInvoice.BuyerId;
                     existingInvoice.BuyerType = editedInvoice.BuyerType;
                     existingInvoice.PaymentType = editedInvoice.PaymentType;
                     existingInvoice.PaymentDeadline = editedInvoice.PaymentDeadline;
@@ -639,7 +538,155 @@ namespace InvoiceMaker.Services
             }
         }
 
+        public Invoice ReturnSelectedInvoice(int id)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                var item = db.Invoices.FirstOrDefault(i => i.Id == id);
 
+                if (item == null)
+                    return null;
+
+                Invoice invoice = new Invoice
+                {
+                    Id = item.Id,
+                    Number = item.Number,
+                    IssueDate = item.IssueDate,
+                    SaleDate = item.SaleDate,
+                    Place = item.Place,
+                    SellerId = item.SellerId ?? 0,
+                    BuyerId = item.BuyerId ?? 0,
+                    BuyerType = item.BuyerType,
+                    PaymentType = item.PaymentType,
+                    PaymentDeadline = item.PaymentDeadline,
+                    SellerSignature = item.SellerSignature,
+                    BuyerSignature = item.BuyerSignature,
+                    Notes = item.Notes
+                };
+
+                var items = db.Items.Where(i => i.InvoiceId == item.Id).ToList();
+
+                List<Item> itemsList = new List<Item>();
+
+                foreach (var position in items)
+                {
+                    itemsList.Add(new Item
+                    {
+                        InvoiceId = position.InvoiceId ?? 0,
+                        Name = position.Name,
+                        Quantity = position.Quantity,
+                        Unit = position.Unit,
+                        VAT = position.VAT,
+                        Netto = position.Netto,
+                        Brutto = position.Brutto
+                    });
+                }
+
+                invoice.Items = itemsList;
+
+                return invoice;
+            }
+        }
+
+        public List<Invoice> ReturnAllInvoicesForUser(int id)
+        {
+            using (var db = new InvoiceMakerDBDataContext())
+            {
+                List<Invoice> invoicesList = new List<Invoice>();
+
+                var invoices = db.Invoices
+                    .Where(s => s.SellerId == id)
+                    .ToList();
+
+                foreach (var item in invoices)
+                {
+                    Invoice invoice = new Invoice
+                    {
+                        Id = item.Id,
+                        Number = item.Number,
+                        IssueDate = item.IssueDate,
+                        SaleDate = item.SaleDate,
+                        Place = item.Place,
+                        SellerId = item.SellerId ?? 0,
+                        BuyerId = item.BuyerId ?? 0,
+                        BuyerType = item.BuyerType,
+                        PaymentType = item.PaymentType,
+                        PaymentDeadline = item.PaymentDeadline,
+                        SellerSignature = item.SellerSignature,
+                        BuyerSignature = item.BuyerSignature,
+                        Notes = item.Notes,
+                    };
+
+                    var items = db.Items.Where(i => i.InvoiceId == item.Id).ToList();
+
+                    List<Item> itemsList = new List<Item>();
+
+                    foreach (var position in items)
+                    {
+                        Item newItem = new Item
+                        {
+                            InvoiceId = position.InvoiceId ?? 0,
+                            Name = position.Name,
+                            Quantity = position.Quantity,
+                            Unit = position.Unit,
+                            VAT = position.VAT,
+                            Netto = position.Netto,
+                            Brutto = position.Brutto
+                        };
+
+                    }
+
+                    invoice.Items = itemsList;
+
+                    invoicesList.Add(invoice);
+                }
+
+                return invoicesList;
+            }
+        }
+
+        public string ReturnNewInvoiceNumber()
+        {
+            using (var context = new InvoiceMakerDBDataContext())
+            {
+                string currentMonth = DateTime.Now.ToString("MM");
+                string currentYear = DateTime.Now.ToString("yyyy");
+                string currentMonthYear = $"{currentMonth}/{currentYear}";
+
+                var lastInvoice = context.Invoices
+                    .AsEnumerable()
+                    .Where(i => i.Number.EndsWith($"/{currentMonthYear}") && i.SellerId == GlobalState.SelectedSeller.Id)
+                    .OrderByDescending(i =>
+                    {
+                        string[] parts = i.Number.Split('/');
+                        return parts.Length >= 2 && int.TryParse(parts[0], out int num) ? num : -1;
+                    })
+                    .FirstOrDefault();
+
+                string newInvoiceNumber;
+
+                if (lastInvoice != null)
+                {
+                    string[] parts = lastInvoice.Number.Split('/');
+
+                    if (parts.Length >= 2 && int.TryParse(parts[0], out int lastNumber))
+                    {
+
+                        newInvoiceNumber = $"{(lastNumber + 1):D2}/{currentMonthYear}";
+                    }
+                    else
+                    {
+                        newInvoiceNumber = $"01/{currentMonthYear}";
+                    }
+                }
+                else
+                {
+                    newInvoiceNumber = $"01/{currentMonthYear}";
+                }
+
+                return newInvoiceNumber;
+            }
+        }
     }
 }
 

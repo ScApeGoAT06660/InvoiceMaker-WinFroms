@@ -32,21 +32,24 @@
             this.pnlRightPanel = new System.Windows.Forms.Panel();
             this.dgwInvoices = new System.Windows.Forms.DataGridView();
             this.pnlLeftPanel = new System.Windows.Forms.Panel();
+            this.gbUserOptions = new System.Windows.Forms.GroupBox();
+            this.btnSwitchUser = new System.Windows.Forms.Button();
             this.gbOtherOptions = new System.Windows.Forms.GroupBox();
+            this.btnManageBuyers = new System.Windows.Forms.Button();
             this.gbManageCRUD = new System.Windows.Forms.GroupBox();
             this.btnManageDelete = new System.Windows.Forms.Button();
             this.btnManageEdit = new System.Windows.Forms.Button();
             this.btnManageAdd = new System.Windows.Forms.Button();
-            this.btnManageBuyers = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.gbSort = new System.Windows.Forms.GroupBox();
+            this.cbSortOptions = new System.Windows.Forms.ComboBox();
             this.pnlMain.SuspendLayout();
             this.pnlRightPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgwInvoices)).BeginInit();
             this.pnlLeftPanel.SuspendLayout();
+            this.gbUserOptions.SuspendLayout();
             this.gbOtherOptions.SuspendLayout();
             this.gbManageCRUD.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.gbSort.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlMain
@@ -84,7 +87,8 @@
             // 
             // pnlLeftPanel
             // 
-            this.pnlLeftPanel.Controls.Add(this.groupBox1);
+            this.pnlLeftPanel.Controls.Add(this.gbSort);
+            this.pnlLeftPanel.Controls.Add(this.gbUserOptions);
             this.pnlLeftPanel.Controls.Add(this.gbOtherOptions);
             this.pnlLeftPanel.Controls.Add(this.gbManageCRUD);
             this.pnlLeftPanel.Dock = System.Windows.Forms.DockStyle.Left;
@@ -93,6 +97,31 @@
             this.pnlLeftPanel.Name = "pnlLeftPanel";
             this.pnlLeftPanel.Size = new System.Drawing.Size(150, 546);
             this.pnlLeftPanel.TabIndex = 0;
+            // 
+            // gbUserOptions
+            // 
+            this.gbUserOptions.Controls.Add(this.btnSwitchUser);
+            this.gbUserOptions.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbUserOptions.Location = new System.Drawing.Point(0, 206);
+            this.gbUserOptions.Margin = new System.Windows.Forms.Padding(2);
+            this.gbUserOptions.Name = "gbUserOptions";
+            this.gbUserOptions.Padding = new System.Windows.Forms.Padding(2);
+            this.gbUserOptions.Size = new System.Drawing.Size(150, 70);
+            this.gbUserOptions.TabIndex = 4;
+            this.gbUserOptions.TabStop = false;
+            this.gbUserOptions.Text = "Użytkownik";
+            // 
+            // btnSwitchUser
+            // 
+            this.btnSwitchUser.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnSwitchUser.Location = new System.Drawing.Point(20, 27);
+            this.btnSwitchUser.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSwitchUser.Name = "btnSwitchUser";
+            this.btnSwitchUser.Size = new System.Drawing.Size(110, 30);
+            this.btnSwitchUser.TabIndex = 3;
+            this.btnSwitchUser.Text = "Zmień użytkownika";
+            this.btnSwitchUser.UseVisualStyleBackColor = true;
+            this.btnSwitchUser.Click += new System.EventHandler(this.btnSwitchUser_Click);
             // 
             // gbOtherOptions
             // 
@@ -107,6 +136,18 @@
             this.gbOtherOptions.TabStop = false;
             this.gbOtherOptions.Text = "Inne opcje";
             // 
+            // btnManageBuyers
+            // 
+            this.btnManageBuyers.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btnManageBuyers.Location = new System.Drawing.Point(20, 27);
+            this.btnManageBuyers.Margin = new System.Windows.Forms.Padding(2);
+            this.btnManageBuyers.Name = "btnManageBuyers";
+            this.btnManageBuyers.Size = new System.Drawing.Size(110, 30);
+            this.btnManageBuyers.TabIndex = 3;
+            this.btnManageBuyers.Text = "Kontrahenci";
+            this.btnManageBuyers.UseVisualStyleBackColor = true;
+            this.btnManageBuyers.Click += new System.EventHandler(this.btnManageBuyers_Click);
+            // 
             // gbManageCRUD
             // 
             this.gbManageCRUD.Controls.Add(this.btnManageDelete);
@@ -114,7 +155,7 @@
             this.gbManageCRUD.Controls.Add(this.btnManageAdd);
             this.gbManageCRUD.Dock = System.Windows.Forms.DockStyle.Top;
             this.gbManageCRUD.Location = new System.Drawing.Point(0, 0);
-            this.gbManageCRUD.Margin = new System.Windows.Forms.Padding(2);
+            this.gbManageCRUD.Margin = new System.Windows.Forms.Padding(2, 2, 2, 5);
             this.gbManageCRUD.Name = "gbManageCRUD";
             this.gbManageCRUD.Padding = new System.Windows.Forms.Padding(2);
             this.gbManageCRUD.Size = new System.Drawing.Size(150, 136);
@@ -158,41 +199,33 @@
             this.btnManageAdd.UseVisualStyleBackColor = true;
             this.btnManageAdd.Click += new System.EventHandler(this.btnManageAdd_Click);
             // 
-            // btnManageBuyers
+            // gbSort
             // 
-            this.btnManageBuyers.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnManageBuyers.Location = new System.Drawing.Point(20, 27);
-            this.btnManageBuyers.Margin = new System.Windows.Forms.Padding(2);
-            this.btnManageBuyers.Name = "btnManageBuyers";
-            this.btnManageBuyers.Size = new System.Drawing.Size(110, 30);
-            this.btnManageBuyers.TabIndex = 3;
-            this.btnManageBuyers.Text = "Kontrahenci";
-            this.btnManageBuyers.UseVisualStyleBackColor = true;
-            this.btnManageBuyers.Click += new System.EventHandler(this.btnManageBuyers_Click);
+            this.gbSort.Controls.Add(this.cbSortOptions);
+            this.gbSort.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gbSort.Location = new System.Drawing.Point(0, 276);
+            this.gbSort.Margin = new System.Windows.Forms.Padding(2);
+            this.gbSort.Name = "gbSort";
+            this.gbSort.Padding = new System.Windows.Forms.Padding(2);
+            this.gbSort.Size = new System.Drawing.Size(150, 73);
+            this.gbSort.TabIndex = 5;
+            this.gbSort.TabStop = false;
+            this.gbSort.Text = "Sortuj";
             // 
-            // groupBox1
+            // cbSortOptions
             // 
-            this.groupBox1.Controls.Add(this.button1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox1.Location = new System.Drawing.Point(0, 206);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(150, 70);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Inne opcje";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button1.Location = new System.Drawing.Point(20, 27);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(110, 30);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Kontrahenci";
-            this.button1.UseVisualStyleBackColor = true;
+            this.cbSortOptions.FormattingEnabled = true;
+            this.cbSortOptions.Items.AddRange(new object[] {
+            "data wystawienia",
+            "data sprzedaży",
+            "kontrahent",
+            "numer",
+            "id"});
+            this.cbSortOptions.Location = new System.Drawing.Point(12, 29);
+            this.cbSortOptions.Name = "cbSortOptions";
+            this.cbSortOptions.Size = new System.Drawing.Size(121, 21);
+            this.cbSortOptions.TabIndex = 0;
+            this.cbSortOptions.SelectedIndexChanged += new System.EventHandler(this.cbSortOptions_SelectedIndexChanged);
             // 
             // frmInvoiceManagement
             // 
@@ -207,9 +240,10 @@
             this.pnlRightPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgwInvoices)).EndInit();
             this.pnlLeftPanel.ResumeLayout(false);
+            this.gbUserOptions.ResumeLayout(false);
             this.gbOtherOptions.ResumeLayout(false);
             this.gbManageCRUD.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
+            this.gbSort.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -225,9 +259,11 @@
         private System.Windows.Forms.Button btnManageDelete;
         private System.Windows.Forms.Button btnManageEdit;
         private System.Windows.Forms.Button btnManageAdd;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox gbUserOptions;
+        private System.Windows.Forms.Button btnSwitchUser;
         private System.Windows.Forms.Button btnManageBuyers;
+        private System.Windows.Forms.GroupBox gbSort;
+        private System.Windows.Forms.ComboBox cbSortOptions;
     }
 }
 

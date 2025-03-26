@@ -13,15 +13,14 @@ using System.Windows.Forms;
 
 namespace InvoiceMaker.Forms
 {
-    public partial class frmBuyersList : Form
+    public partial class frmBuyersList : BaseForm
     {
-        DataRepository dataRepository;
         frmInvoice _invoice;
 
         public frmBuyersList(frmInvoice invoice)
         {
             InitializeComponent();
-            dataRepository = new DataRepository();
+
             _invoice = invoice;
 
             LoadTradersData();
@@ -30,7 +29,8 @@ namespace InvoiceMaker.Forms
         public frmBuyersList()
         {
             InitializeComponent();
-            dataRepository = new DataRepository();
+
+            btnBuyersSelect.Visible = false;
 
             LoadTradersData();
         }
@@ -39,6 +39,64 @@ namespace InvoiceMaker.Forms
         {
             List<Buyer> buyers = dataRepository.ReturnAllBuyers();
 
+            dgwBuyersList.Columns.Clear();
+            dgwBuyersList.AutoGenerateColumns = false;
+
+            DataGridViewTextBoxColumn idColumn = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Id",
+                HeaderText = "ID",
+                Name = "Id",
+                Width = 40
+            };
+
+            DataGridViewTextBoxColumn name = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = "Nazwa",
+                Name = "Name",
+                Width = 200
+            };
+
+            DataGridViewTextBoxColumn vatID = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "VATID",
+                HeaderText = "NIP",
+                Name = "VATID",
+                Width = 100
+            };
+
+            DataGridViewTextBoxColumn streetAndNo = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "StreetAndNo",
+                HeaderText = "Ulica",
+                Name = "StreetAndNo",
+                Width = 200
+            };
+
+            DataGridViewTextBoxColumn postcode = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Postcode",
+                HeaderText = "Kod",
+                Name = "Postcode",
+                Width = 80
+            };
+
+            DataGridViewTextBoxColumn city = new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "City",
+                HeaderText = "Miasto",
+                Name = "City",
+                Width = 150
+            };
+
+            dgwBuyersList.Columns.Add(idColumn);
+            dgwBuyersList.Columns.Add(name);
+            dgwBuyersList.Columns.Add(vatID);
+            dgwBuyersList.Columns.Add(streetAndNo);
+            dgwBuyersList.Columns.Add(postcode);
+            dgwBuyersList.Columns.Add(city);
+
             dgwBuyersList.DataSource = buyers;
         }
 
@@ -46,13 +104,16 @@ namespace InvoiceMaker.Forms
         {
             if (dgwBuyersList.CurrentRow != null)
             {
-                int selectedId = Convert.ToInt32(dgwBuyersList.CurrentRow.Cells["Id"].Value);
-                Buyer selectedBuyer = dataRepository.ReturnSelectedBuyer(selectedId);
-                GlobalState.SelectedBuyer = selectedBuyer;
+                if(_invoice != null)
+                {
+                    int selectedId = Convert.ToInt32(dgwBuyersList.CurrentRow.Cells["Id"].Value);
+                    Buyer selectedBuyer = dataRepository.ReturnSelectedBuyer(selectedId);
+                    GlobalState.SelectedBuyer = selectedBuyer;
 
-                _invoice.ShowChosenBuyer(selectedBuyer);
+                    _invoice.ShowChosenBuyer(selectedBuyer);
 
-                this.Close();
+                    this.Close();
+                }
             }
             else
             {
@@ -82,12 +143,14 @@ namespace InvoiceMaker.Forms
                 int selectedId = Convert.ToInt32(dgwBuyersList.CurrentRow.Cells["Id"].Value);
                 Buyer selectedBuyer = dataRepository.ReturnSelectedBuyer(selectedId);
 
-                frmEditBuyer frmEditBuyer = new frmEditBuyer(this, selectedBuyer);
+                frmBuyer frmEditBuyer = new frmBuyer(selectedBuyer);
                 frmEditBuyer.ShowDialog();
+
+                LoadTradersData();
             }
             else
             {
-                MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Zaznacz kontrahenta do edycji.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -102,9 +165,17 @@ namespace InvoiceMaker.Forms
             }
             else
             {
-                MessageBox.Show("Zaznacz lub kliknij dwa razy na wybranego kontrahenta.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Zaznacz kontrahenta do usunięcia.", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
 
+        }
+
+        private void btnAddBuyer_Click(object sender, EventArgs e)
+        {
+            frmBuyer frmBuyer = new frmBuyer();
+            frmBuyer.ShowDialog();
+
+            LoadTradersData();
         }
     }
 }
